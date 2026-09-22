@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ms" data-theme="light" data-color="emerald">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Website pembelajaran interaktif Pengajian Perniagaan STPM Semester 1 — Nota lengkap, kuiz, peperiksaan dengan pemasa, dan AI pembantu.">
+  <title>Pengajian Perniagaan Sem 1 — Pembelajaran Interaktif STPM</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR OVERLAY (Mobile) ═══ -->
+<div class="overlay" id="sidebarOverlay"></div>
+
+<div class="app-layout">
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- SIDEBAR                            -->
+  <!-- ═══════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="#" class="sidebar-logo" onclick="showSection('home');closeSidebar();return false;">
+        <div class="sidebar-logo-icon"><i data-lucide="graduation-cap" style="width:22px;height:22px"></i></div>
+        <div class="sidebar-logo-text">Pengajian Perniagaan<span>STPM Semester 1</span></div>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Utama -->
+      <div class="nav-section-title">Utama</div>
+      <button class="nav-item active" data-section="home"><i data-lucide="layout-dashboard"></i> Halaman Utama</button>
+
+      <!-- Nota -->
+      <div class="nav-section-title">Nota Pembelajaran</div>
+      <button class="nav-item" data-section="bab1"><i data-lucide="briefcase"></i> Tajuk 1: Perniagaan</button>
+      <button class="nav-item" data-section="bab2"><i data-lucide="users"></i> Tajuk 2: Pengurusan</button>
+      <button class="nav-item" data-section="bab3"><i data-lucide="git-branch"></i> Tajuk 3: Keputusan</button>
+
+      <!-- Interaktif -->
+      <div class="nav-section-title">Interaktif</div>
+      <button class="nav-item" data-section="quiz"><i data-lucide="help-circle"></i> Kuiz Interaktif</button>
+      <button class="nav-item" data-section="exam"><i data-lucide="file-text"></i> Peperiksaan Fakta</button>
+      <button class="nav-item" data-section="hafalan"><i data-lucide="brain"></i> Hafalan Fakta</button>
+      <button class="nav-item" data-section="fakta"><i data-lucide="list-checks"></i> Senarai Fakta</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div style="font-size:0.7rem;color:var(--text-tertiary);text-align:center">
+        <i data-lucide="book-open" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i>
+        Berdasarkan Sukatan STPM 2024
+      </div>
+      <div class="developer-credit">
+        <i data-lucide="code-2" style="width:12px;height:12px"></i>
+        <span>Developed by <strong>FizamCyberSec</strong>@Pizam Parker</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- MAIN CONTENT                       -->
+  <!-- ═══════════════════════════════════ -->
+  <main class="main-content">
+
+    <!-- ── Header ── -->
+    <header class="header">
+      <button class="menu-toggle" id="menuToggle"><i data-lucide="menu" style="width:22px;height:22px"></i></button>
+
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <i data-lucide="search"></i>
+          <input type="text" class="search-input" id="searchInput" placeholder="Cari tajuk, fakta khusus, kata kunci...">
+        </div>
+        <div class="search-results-dropdown" id="searchDropdown"></div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Dark mode quick toggle -->
+        <button class="header-btn" id="darkModeHeaderBtn" title="Dark / Light Mode">
+          <i data-lucide="moon" style="width:18px;height:18px"></i>
+        </button>
+        <!-- Theme picker trigger -->
+        <div style="position:relative">
+          <button class="header-btn" id="themePickerBtn" title="Tema Warna">
+            <i data-lucide="palette" style="width:18px;height:18px"></i>
+          </button>
+          <!-- Theme Picker Dropdown -->
+          <div class="theme-picker" id="themePicker">
+            <div class="theme-picker-title">Pilih Tema Warna</div>
+            <div class="theme-colors">
+              <button class="theme-color-btn" data-color="emerald" title="Hijau Zamrud"></button>
+              <button class="theme-color-btn" data-color="ocean" title="Biru Lautan"></button>
+              <button class="theme-color-btn" data-color="midnight" title="Biru Malam"></button>
+              <button class="theme-color-btn" data-color="rose" title="Merah Jambu"></button>
+              <button class="theme-color-btn" data-color="crimson" title="Merah"></button>
+              <button class="theme-color-btn" data-color="amber" title="Emas"></button>
+              <button class="theme-color-btn" data-color="violet" title="Ungu"></button>
+              <button class="theme-color-btn" data-color="teal" title="Teal"></button>
+            </div>
+            <div class="dark-mode-toggle">
+              <span class="dark-mode-label">Mod Gelap</span>
+              <button class="toggle-switch" id="darkModeToggle"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- PAGE: HOME                         -->
+    <!-- ═══════════════════════════════════ -->
+    <div class="page-content">
+
+      <div class="content-section active" id="section-home">
+        <!-- Welcome Hero -->
+        <div class="welcome-hero">
+          <div class="welcome-hero-content">
+            <div class="welcome-badge"><i data-lucide="sparkles" style="width:14px;height:14px"></i> Pembelajaran Interaktif</div>
+            <h1 class="welcome-title">Pengajian Perniagaan<br>Semester 1 STPM</h1>
+            <p class="welcome-desc">Platform pembelajaran lengkap dengan nota interaktif, kuiz, peperiksaan berpemasa, dan pembantu AI — semua dalam satu tempat.</p>
+            <div class="welcome-stats">
+              <div class="welcome-stat">
+                <div class="welcome-stat-value">3</div>
+                <div class="welcome-stat-label">Tajuk Utama</div>
+              </div>
+              <div class="welcome-stat">
+                <div class="welcome-stat-value">84</div>
+                <div class="welcome-stat-label">Muka Surat Nota</div>
+              </div>
+              <div class="welcome-stat">
+                <div class="welcome-stat-value">50+</div>
+                <div class="welcome-stat-label">Soalan Kuiz</div>
+              </div>
+              <div class="welcome-stat">
+                <div class="welcome-stat-value">30+</div>
+                <div class="welcome-stat-label">Fakta Khusus</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features Grid -->
+        <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:16px;color:var(--text-primary)">
+          <i data-lucide="compass" style="width:20px;height:20px;vertical-align:middle;margin-right:6px;color:var(--primary)"></i>
+          Mula Belajar
+        </h2>
+        <div class="features-grid">
+          <div class="feature-card" onclick="showSection('bab1')">
+            <div class="feature-card-icon"><i data-lucide="briefcase" style="width:24px;height:24px"></i></div>
+            <div class="feature-card-title">Tajuk 1: Perniagaan dan Persekitaran</div>
+            <div class="feature-card-desc">Faktor pengeluaran, aktiviti perniagaan, persekitaran umum & tugas, entiti perniagaan.</div>
+          </div>
+          <div class="feature-card" onclick="showSection('bab2')">
+            <div class="feature-card-icon"><i data-lucide="users" style="width:24px;height:24px"></i></div>
+            <div class="feature-card-title">Tajuk 2: Pengurusan</div>
+            <div class="feature-card-desc">Fungsi pengurusan, perancangan strategik, pengorganisasian, kepimpinan, pengawalan.</div>
+          </div>
+          <div class="feature-card" onclick="showSection('bab3')">
+            <div class="feature-card-icon"><i data-lucide="git-branch" style="width:24px;height:24px"></i></div>
+            <div class="feature-card-title">Tajuk 3: Pembuatan Keputusan</div>
+            <div class="feature-card-desc">Jenis keputusan, model pembuatan keputusan, proses rasional, gaya keputusan.</div>
+          </div>
+          <div class="feature-card" onclick="showSection('quiz')">
+            <div class="feature-card-icon"><i data-lucide="help-circle" style="width:24px;height:24px"></i></div>
+            <div class="feature-card-title">Kuiz Interaktif</div>
+            <div class="feature-card-desc">Uji kefahaman anda dengan soalan pelbagai pilihan mengikut bab.</div>
+          </div>
+          <div class="feature-card" onclick="showSection('exam')">
+            <div class="feature-card-icon"><i data-lucide="file-text" style="width:24px;height:24px"></i></div>
+            <div class="feature-card-title">Peperiksaan Fakta Khusus</div>
+            <div class="feature-card-desc">Jawab soalan fakta khusus dengan pemasa. Nyatakan, senaraikan, huraikan.</div>
+          </div>
+          <div class="feature-card" onclick="showSection('fakta')">
+            <div class="feature-card-icon"><i data-lucide="list-checks" style="width:24px;height:24px"></i></div>
+            <div class="feature-card-title">Senarai Fakta Khusus</div>
+            <div class="feature-card-desc">Semua fakta khusus disusun mengikut bab untuk ulang kaji pantas.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: BAB 1                        -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-bab1">
+        <div class="page-header">
+          <div class="page-breadcrumb">
+            <i data-lucide="home" style="cursor:pointer" onclick="showSection('home')"></i>
+            <span>/</span>
+            <span>Nota Pembelajaran</span>
+          </div>
+          <h1 class="page-title">Tajuk 1: Perniagaan dan Persekitaran</h1>
+          <p class="page-subtitle">Konsep perniagaan, faktor pengeluaran, aktiviti perniagaan, persekitaran umum dan tugas, serta entiti perniagaan.</p>
+        </div>
+        <div id="nota-tajuk1"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: BAB 2                        -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-bab2">
+        <div class="page-header">
+          <div class="page-breadcrumb">
+            <i data-lucide="home" style="cursor:pointer" onclick="showSection('home')"></i>
+            <span>/</span>
+            <span>Nota Pembelajaran</span>
+          </div>
+          <h1 class="page-title">Tajuk 2: Pengurusan</h1>
+          <p class="page-subtitle">Fungsi dan peranan pengurus, perancangan, pengorganisasian, kepimpinan, motivasi, dan pengawalan.</p>
+        </div>
+        <div id="nota-tajuk2"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: BAB 3                        -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-bab3">
+        <div class="page-header">
+          <div class="page-breadcrumb">
+            <i data-lucide="home" style="cursor:pointer" onclick="showSection('home')"></i>
+            <span>/</span>
+            <span>Nota Pembelajaran</span>
+          </div>
+          <h1 class="page-title">Tajuk 3: Pembuatan Keputusan</h1>
+          <p class="page-subtitle">Jenis keputusan, faktor situasi, model pembuatan keputusan, proses rasional, dan gaya keputusan.</p>
+        </div>
+        <div id="nota-tajuk3"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: QUIZ                         -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-quiz">
+        <div class="page-header">
+          <div class="page-breadcrumb">
+            <i data-lucide="home" style="cursor:pointer" onclick="showSection('home')"></i>
+            <span>/</span>
+            <span>Interaktif</span>
+          </div>
+          <h1 class="page-title">Kuiz Interaktif</h1>
+          <p class="page-subtitle">Pilih bab dan uji kefahaman anda. Semua soalan dipaparkan sekaligus — jawab semua dan hantar!</p>
+        </div>
+
+        <div class="card" style="max-width:540px;margin:0 auto">
+          <div class="exam-setup">
+            <div class="exam-setup-icon"><i data-lucide="help-circle" style="width:36px;height:36px"></i></div>
+            <div class="exam-setup-title">Tetapan Kuiz</div>
+            <div class="exam-setup-desc">Pilih bab dan tetapkan pemasa (atau matikan). 10 soalan rawak setiap sesi.</div>
+            <div class="exam-options">
+              <div class="exam-option-group">
+                <label for="quizBabSelect"><i data-lucide="book-open" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i> Pilih Bab</label>
+                <select class="exam-select" id="quizBabSelect">
+                  <option value="all">Semua Bab</option>
+                  <option value="1">Tajuk 1: Perniagaan dan Persekitaran</option>
+                  <option value="2">Tajuk 2: Pengurusan</option>
+                  <option value="3">Tajuk 3: Pembuatan Keputusan</option>
+                </select>
+              </div>
+              <div class="exam-option-group">
+                <label for="quizTimerSelect"><i data-lucide="clock" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i> Pemasa</label>
+                <select class="exam-select" id="quizTimerSelect">
+                  <option value="0" selected>Tiada pemasa</option>
+                  <option value="5">5 Minit</option>
+                  <option value="10">10 Minit</option>
+                  <option value="15">15 Minit</option>
+                  <option value="20">20 Minit</option>
+                  <option value="30">30 Minit</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn-lg" style="width:100%;margin-top:8px" onclick="startQuiz()">
+                <i data-lucide="play"></i> Mula Kuiz
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: QUIZ ACTIVE                  -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-quiz-active">
+        <div id="quizActiveContent" class="gform-container"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: EXAM SETUP                   -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-exam">
+        <div class="page-header">
+          <div class="page-breadcrumb">
+            <i data-lucide="home" style="cursor:pointer" onclick="showSection('home')"></i>
+            <span>/</span>
+            <span>Interaktif</span>
+          </div>
+          <h1 class="page-title">Peperiksaan Fakta Khusus</h1>
+          <p class="page-subtitle">Jawab soalan fakta khusus dengan pemasa. Pilih jenis soalan — pilihan (MCQ), struktur (huraian), atau kedua-dua sekali.</p>
+        </div>
+
+        <div class="card" style="max-width:540px;margin:0 auto">
+          <div class="exam-setup">
+            <div class="exam-setup-icon"><i data-lucide="clipboard-list" style="width:36px;height:36px"></i></div>
+            <div class="exam-setup-title">Tetapan Peperiksaan</div>
+            <div class="exam-setup-desc">Pilih bab dan tetapkan masa peperiksaan anda. Soalan akan dipaparkan secara rawak.</div>
+
+            <div class="exam-options">
+              <div class="exam-option-group">
+                <label for="examBabSelect"><i data-lucide="book-open" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i> Pilih Bab</label>
+                <select class="exam-select" id="examBabSelect">
+                  <option value="all">Semua Bab</option>
+                  <option value="1">Tajuk 1: Perniagaan dan Persekitaran</option>
+                  <option value="2">Tajuk 2: Pengurusan</option>
+                  <option value="3">Tajuk 3: Pembuatan Keputusan</option>
+                </select>
+              </div>
+
+              <div class="exam-option-group">
+                <label for="examTypeSelect"><i data-lucide="list-filter" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i> Jenis Soalan</label>
+                <select class="exam-select" id="examTypeSelect">
+                  <option value="pilihan">Soalan Pilihan (MCQ)</option>
+                  <option value="struktur">Soalan Struktur (Huraian)</option>
+                  <option value="kedua" selected>Kedua-dua Jenis</option>
+                </select>
+              </div>
+
+              <div class="exam-option-group">
+                <label for="examTimerSelect"><i data-lucide="clock" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i> Masa Peperiksaan</label>
+                <select class="exam-select" id="examTimerSelect">
+                  <option value="0">Tiada pemasa</option>
+                  <option value="5">5 Minit</option>
+                  <option value="10" selected>10 Minit</option>
+                  <option value="15">15 Minit</option>
+                  <option value="20">20 Minit</option>
+                  <option value="30">30 Minit</option>
+                  <option value="45">45 Minit</option>
+                  <option value="60">60 Minit</option>
+                </select>
+              </div>
+
+              <button class="btn btn-primary btn-lg" style="width:100%;margin-top:8px" onclick="startExam()">
+                <i data-lucide="play"></i> Mula Peperiksaan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: EXAM ACTIVE                  -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-exam-active">
+        <div id="examActiveContent" class="gform-container"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: HAFALAN FAKTA SETUP           -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-hafalan">
+        <div class="page-header">
+          <div class="page-breadcrumb">
+            <i data-lucide="home" style="cursor:pointer" onclick="showSection('home')"></i>
+            <span>/</span>
+            <span>Interaktif</span>
+          </div>
+          <h1 class="page-title">Hafalan Fakta Khusus</h1>
+          <p class="page-subtitle">Uji hafalan anda — isi tempat kosong untuk setiap fakta khusus. Format: "Nyatakan X perkara" → isi jawapan.</p>
+        </div>
+
+        <div class="card" style="max-width:540px;margin:0 auto">
+          <div class="exam-setup">
+            <div class="exam-setup-icon"><i data-lucide="brain" style="width:36px;height:36px"></i></div>
+            <div class="exam-setup-title">Tetapan Hafalan</div>
+            <div class="exam-setup-desc">Pilih bab dan isi tempat kosong. Soalan akan dipaparkan sekaligus — isi semua dan hantar!</div>
+            <div class="exam-options">
+              <div class="exam-option-group">
+                <label for="hafalanBabSelect"><i data-lucide="book-open" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i> Pilih Bab</label>
+                <select class="exam-select" id="hafalanBabSelect">
+                  <option value="all">Semua Bab</option>
+                  <option value="1">Tajuk 1: Perniagaan dan Persekitaran</option>
+                  <option value="2">Tajuk 2: Pengurusan</option>
+                  <option value="3">Tajuk 3: Pembuatan Keputusan</option>
+                </select>
+              </div>
+              <div class="exam-option-group">
+                <label for="hafalanTimerSelect"><i data-lucide="clock" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"></i> Pemasa</label>
+                <select class="exam-select" id="hafalanTimerSelect">
+                  <option value="0" selected>Tiada pemasa</option>
+                  <option value="5">5 Minit</option>
+                  <option value="10">10 Minit</option>
+                  <option value="15">15 Minit</option>
+                  <option value="20">20 Minit</option>
+                  <option value="30">30 Minit</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn-lg" style="width:100%;margin-top:8px" onclick="startHafalan()">
+                <i data-lucide="play"></i> Mula Hafalan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: HAFALAN ACTIVE                -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-hafalan-active">
+        <div id="hafalanActiveContent" class="gform-container"></div>
+      </div>
+
+      <!-- ═══════════════════════════════════ -->
+      <!-- PAGE: FAKTA KHUSUS                 -->
+      <!-- ═══════════════════════════════════ -->
+      <div class="content-section" id="section-fakta">
+        <div class="page-header">
+          <div class="page-breadcrumb">
+            <i data-lucide="home" style="cursor:pointer" onclick="showSection('home')"></i>
+            <span>/</span>
+            <span>Interaktif</span>
+          </div>
+          <h1 class="page-title">Senarai Fakta Khusus</h1>
+          <p class="page-subtitle">Semua fakta khusus mengikut bab — rujukan pantas untuk ulang kaji dan persediaan peperiksaan.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchFaktaTab(this,'fakta-tab-1')">Tajuk 1</button>
+          <button class="tab-btn" onclick="switchFaktaTab(this,'fakta-tab-2')">Tajuk 2</button>
+          <button class="tab-btn" onclick="switchFaktaTab(this,'fakta-tab-3')">Tajuk 3</button>
+        </div>
+
+        <!-- Tab 1 -->
+        <div class="tab-content active" id="fakta-tab-1">
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.1.2 Faktor Pengeluaran</div></div>
+            <ol class="fakta-list"><li>Bahan mentah</li><li>Modal</li><li>Modal insan</li><li>Teknologi</li><li>Keusahawanan</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.1.3 Proses Perniagaan</div></div>
+            <ol class="fakta-list"><li>Input</li><li>Proses tambah nilai</li><li>Output</li><li>Pemasaran</li><li>Untung atau rugi</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.2(a) Aktiviti Perniagaan Berasaskan Pengeluaran</div></div>
+            <ol class="fakta-list"><li>Ekstraktif</li><li>Barangan pengguna</li><li>Barangan industri</li><li>Pembuatan</li><li>Pemasangan</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.2(b) Aktiviti Perniagaan Berasaskan Perkhidmatan</div></div>
+            <ol class="fakta-list"><li>Peruncitan</li><li>Pemborongan</li><li>Kewangan</li><li>Profesional</li><li>Perhotelan</li><li>Pendidikan</li><li>Gig</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.2(d) Klasifikasi Perniagaan</div></div>
+            <ol class="fakta-list"><li>Primer</li><li>Sekunder</li><li>Tertiar</li><li>Huluan</li><li>Aliran Pertengahan</li><li>Hiliran</li><li>Domestik</li><li>Antarabangsa</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.2(e) Kepentingan Perniagaan Antarabangsa</div></div>
+            <ol class="fakta-list"><li>Tukaran asing</li><li>Pasaran luas</li><li>Pemindahan teknologi</li><li>Pemindahan kepakaran</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.3.1 Faktor Persekitaran Umum</div></div>
+            <ol class="fakta-list"><li>Ekonomi</li><li>Persaingan dan jaringan</li><li>Sosiobudaya</li><li>Politik dan perundangan</li><li>Teknologi</li><li>Prasarana</li><li>Antarabangsa</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.3.2 Faktor Persekitaran Tugas</div></div>
+            <ol class="fakta-list"><li>Pelanggan</li><li>Pembekal</li><li>Pembiaya</li><li>Pemodal/pelabur</li><li>Pesaing</li><li>Kerajaan</li><li>Pekerja</li><li>Masyarakat</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">1.4 Ciri-ciri Entiti Perniagaan</div></div>
+            <ol class="fakta-list"><li>Milikan tunggal</li><li>Perkongsian</li><li>Syarikat</li><li>Koperasi</li></ol>
+          </div>
+        </div>
+
+        <!-- Tab 2 -->
+        <div class="tab-content" id="fakta-tab-2">
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.1.1 Fungsi Pengurusan</div></div>
+            <ol class="fakta-list"><li>Perancangan</li><li>Pengorganisasian</li><li>Kepimpinan</li><li>Pengawalan</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.2.1 Peringkat Pengurusan</div></div>
+            <ol class="fakta-list"><li>Peringkat bawahan</li><li>Peringkat pertengahan</li><li>Peringkat atasan</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.2.2 Jenis Kemahiran Pengurusan</div></div>
+            <ol class="fakta-list"><li>Konseptual</li><li>Antara perorangan atau kemanusiaan</li><li>Teknikal</li><li>Pengurusan masa</li><li>Pembuatan keputusan</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.3.1 Proses Perancangan</div></div>
+            <ol class="fakta-list"><li>Menentukan matlamat dan objektif</li><li>Menganalisis persekitaran perniagaan</li><li>Membentuk alternatif tindakan</li><li>Menilai alternatif</li><li>Memilih alternatif tindakan</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.3.2 Tahap Perancangan Strategik</div></div>
+            <ol class="fakta-list"><li>Perancangan Strategi Korporat</li><li>Strategi perniagaan</li><li>Strategi Operasi (fungsian)</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.3.2 Unsur-unsur Perancangan Strategik</div></div>
+            <ol class="fakta-list"><li>Visi</li><li>Misi</li><li>Objektif (VMO)</li><li>Strategi dan taktik</li><li>Dasar/polisi</li><li>Prosedur</li><li>Standard</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.3.2 Analisis SWOT</div></div>
+            <ol class="fakta-list"><li>Kekuatan (Strengths)</li><li>Kelemahan (Weaknesses)</li><li>Peluang (Opportunities)</li><li>Ancaman (Threats)</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.3.2 Analisis PESTEL</div></div>
+            <ol class="fakta-list"><li>Politik</li><li>Ekonomi</li><li>Sosial</li><li>Teknologi</li><li>Persekitaran (Environment)</li><li>Undang-undang (Legal)</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.4.1 Struktur Organisasi</div></div>
+            <ol class="fakta-list"><li>Struktur mengikut fungsi</li><li>Struktur mengikut divisyen (produk, pasaran, geografi)</li><li>Struktur mengikut matriks</li><li>Struktur mengikut pasukan</li><li>Struktur mengikut rangkaian maya</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.4.2 Proses Pengorganisasian</div></div>
+            <ol class="fakta-list"><li>Penentuan objektif</li><li>Pengenalpastian aktiviti</li><li>Pengelasan aktiviti</li><li>Pengelompokan aktiviti</li><li>Pengagihan tugas, autoriti dan tanggungjawab</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.5.1 Jenis Kuasa Pemimpin</div></div>
+            <ol class="fakta-list"><li>Kuasa sah</li><li>Kuasa ganjaran</li><li>Kuasa desakan</li><li>Kuasa rujukan</li><li>Kuasa kepakaran</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.5.2 Jenis Kepimpinan</div></div>
+            <ol class="fakta-list"><li>Transaksional</li><li>Transformasi</li><li>Karismatik</li><li>Berwawasan</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.5.3 Gaya Kepimpinan</div></div>
+            <ol class="fakta-list"><li>Autokratik</li><li>Demokratik</li><li>Laissez-faire</li><li>Kontingensi</li><li>Kepimpinan khidmat (servant leadership)</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.5.6 Teori Motivasi</div></div>
+            <ol class="fakta-list"><li>Teori motivasi Maslow</li><li>Teori motivasi Herzberg</li><li>Teori motivasi McGregor</li><li>Teori motivasi McClelland</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.5.7 Proses Pembentukan Pasukan</div></div>
+            <ol class="fakta-list"><li>Pembentukan (forming)</li><li>Peributan (storming)</li><li>Penyesuaian (norming)</li><li>Pelaksanaan (performing)</li><li>Penangguhan (adjourning)</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.6.1 Proses Kawalan</div></div>
+            <ol class="fakta-list"><li>Menetapkan standard</li><li>Mengukur pencapaian</li><li>Membandingkan pencapaian dengan standard</li><li>Membuat langkah pembetulan</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.6.2 Kaedah Kawalan</div></div>
+            <ol class="fakta-list"><li>Kawalan awalan</li><li>Kawalan semasa</li><li>Kawalan selepas</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">2.6.3 Alat-alat Kawalan</div></div>
+            <ol class="fakta-list"><li>Analisis Titik Pulangan Modal</li><li>Bajet</li><li>Carta Gantt</li></ol>
+          </div>
+        </div>
+
+        <!-- Tab 3 -->
+        <div class="tab-content" id="fakta-tab-3">
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">3.1(b) Jenis Keputusan</div></div>
+            <ol class="fakta-list"><li>Keputusan rutin</li><li>Keputusan tak rutin</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">3.1(c) Pengaruh Faktor Situasi</div></div>
+            <ol class="fakta-list"><li>Kepastian</li><li>Risiko</li><li>Ketidakpastian</li><li>Kesamaran</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">3.2(b) Model Pembuatan Keputusan</div></div>
+            <ol class="fakta-list"><li>Model klasik</li><li>Model pentadbiran</li><li>Model politik</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">3.3 Proses Pembuatan Keputusan Rasional</div></div>
+            <ol class="fakta-list"><li>Mengenal pasti masalah</li><li>Mengutip data</li><li>Menganalisis data</li><li>Menjana alternatif</li><li>Menilai alternatif</li><li>Memilih alternatif</li></ol>
+          </div>
+          <div class="card card-accent">
+            <div class="card-header"><div class="card-icon"><i data-lucide="tag" style="width:20px;height:20px"></i></div><div class="card-title">3.4 Gaya Membuat Keputusan</div></div>
+            <ol class="fakta-list"><li>Direktif</li><li>Analitik</li><li>Konseptual</li><li>Tingkah laku</li></ol>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </main>
+</div><!-- /app-layout -->
+
+<!-- ═══════════════════════════════════ -->
+<!-- AI CHAT WIDGET                     -->
+<!-- ═══════════════════════════════════ -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div class="chat-header-avatar"><i data-lucide="bot" style="width:20px;height:20px"></i></div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Pembantu AI PP</div>
+        <div class="chat-header-status">Dalam talian</div>
+      </div>
+      <button class="chat-close-btn" id="chatCloseBtn"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">Assalamualaikum! Saya pembantu AI untuk Pengajian Perniagaan Sem 1. Tanya saya apa-apa tentang nota! Contoh: "Apakah faktor pengeluaran?"</div>
+    </div>
+    <div class="chat-suggestions">
+      <button class="chat-suggestion-btn">Faktor pengeluaran</button>
+      <button class="chat-suggestion-btn">Fungsi pengurusan</button>
+      <button class="chat-suggestion-btn">Analisis SWOT</button>
+      <button class="chat-suggestion-btn">Gaya kepimpinan</button>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Tanya soalan anda...">
+      <button class="chat-send-btn" id="chatSendBtn"><i data-lucide="send" style="width:18px;height:18px"></i></button>
+    </div>
+  </div>
+  <button class="chat-toggle-btn" id="chatToggleBtn"><i data-lucide="message-circle" style="width:24px;height:24px"></i></button>
+</div>
+
+<!-- Fakta Tab Switcher Script -->
+<script>
+function switchFaktaTab(btn, tabId) {
+  btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+}
+</script>
+
+<script src="app.js"></script>
+</body>
+</html>
