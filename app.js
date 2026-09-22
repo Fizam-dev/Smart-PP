@@ -1,4 +1,4 @@
-﻿/* =========================================================
+/* =========================================================
    PENGAJIAN PERNIAGAAN SEM 1 — APPLICATION LOGIC
    ========================================================= */
 
@@ -1823,9 +1823,51 @@ function renderNotaSection(tajukKey) {
 }
 
 // ──────────────────────────────────────────────
-// 19. INIT ON LOAD
+// 19. LOCKSCREEN
+// ──────────────────────────────────────────────
+function setupLockscreen() {
+  const container = document.getElementById('lockscreen-container');
+  const appContent = document.getElementById('app-content');
+  const btn = document.getElementById('lockscreen-btn');
+  const pwdInput = document.getElementById('lockscreen-pwd');
+  const errorMsg = document.getElementById('lockscreen-error');
+
+  // The base64 encoded password for 'Xy7$P@ssw0rd!99'
+  const validHash = 'WHk3JFBAc3N3MHJkITk5'; 
+
+  function checkPassword() {
+    const input = pwdInput.value;
+    if (btoa(input) === validHash) {
+      container.classList.add('unlocked');
+      setTimeout(() => {
+        container.style.display = 'none';
+        appContent.style.display = 'block';
+      }, 400); // Wait for transition
+    } else {
+      errorMsg.textContent = 'Akses Ditolak. Sila cuba lagi.';
+      errorMsg.classList.add('show');
+      pwdInput.value = '';
+      container.querySelector('.lockscreen-card').classList.add('shake');
+      setTimeout(() => {
+        container.querySelector('.lockscreen-card').classList.remove('shake');
+      }, 300);
+    }
+  }
+
+  if (btn && pwdInput) {
+    btn.addEventListener('click', checkPassword);
+    pwdInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkPassword();
+    });
+  }
+}
+
+// ──────────────────────────────────────────────
+// 20. INIT ON LOAD
 // ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  setupLockscreen();
+
   // Render dynamic nota sections
   ['tajuk1', 'tajuk2', 'tajuk3'].forEach((key, i) => {
     const container = document.getElementById(`nota-${key}`);
@@ -1837,3 +1879,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Lucide icons
   if (window.lucide) lucide.createIcons();
 });
+

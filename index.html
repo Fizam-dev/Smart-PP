@@ -11,6 +11,22 @@
 </head>
 <body>
 
+<!-- ═══ LOCKSCREEN ═══ -->
+<div id="lockscreen-container">
+  <div class="lockscreen-card">
+    <div class="lockscreen-icon"><i data-lucide="lock"></i></div>
+    <h2>Kawasan Selamat</h2>
+    <p>Sila masukkan kekunci akses untuk meneruskan.</p>
+    <div class="lockscreen-input-group">
+      <input type="password" id="lockscreen-pwd" placeholder="Kekunci Akses..." autocomplete="off">
+      <button id="lockscreen-btn"><i data-lucide="arrow-right"></i></button>
+    </div>
+    <div id="lockscreen-error" class="lockscreen-error"></div>
+  </div>
+</div>
+
+<div id="app-content" style="display: none;">
+
 <!-- ═══ SIDEBAR OVERLAY (Mobile) ═══ -->
 <div class="overlay" id="sidebarOverlay"></div>
 
@@ -611,6 +627,8 @@ function switchFaktaTab(btn, tabId) {
   document.getElementById(tabId).classList.add('active');
 }
 </script>
+
+</div> <!-- /app-content -->
 
 <script src="app.js"></script>
 </body>
