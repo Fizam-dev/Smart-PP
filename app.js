@@ -1097,11 +1097,22 @@ function sendChatMessage() {
   addChatMessage(msg, 'user');
   input.value = '';
 
-  // Process AI response
+  // Add Thinking indicator
+  const container = document.getElementById('chatMessages');
+  const typingIndicator = document.createElement('div');
+  typingIndicator.className = 'chat-msg bot typing-indicator';
+  typingIndicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  container.appendChild(typingIndicator);
+  container.scrollTop = container.scrollHeight;
+
+  // Process AI response with simulated delay
   setTimeout(() => {
+    if (typingIndicator.parentNode) {
+      typingIndicator.parentNode.removeChild(typingIndicator);
+    }
     const response = generateAIResponse(msg);
-    addChatMessage(response, 'bot');
-  }, 500);
+    typeChatResponse(response);
+  }, 1200);
 }
 
 function addChatMessage(text, type) {
@@ -1111,6 +1122,67 @@ function addChatMessage(text, type) {
   div.innerHTML = text;
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
+}
+
+function typeChatResponse(html) {
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg bot';
+  container.appendChild(div);
+
+  const tokens = [];
+  let i = 0;
+  while (i < html.length) {
+    if (html[i] === '<') {
+      let tag = '';
+      while (i < html.length && html[i] !== '>') {
+        tag += html[i];
+        i++;
+      }
+      tag += '>';
+      tokens.push(tag);
+      i++;
+    } else if (html[i] === '&') {
+      let entity = '';
+      while (i < html.length && html[i] !== ';') {
+        entity += html[i];
+        i++;
+      }
+      entity += ';';
+      tokens.push(entity);
+      i++;
+    } else {
+      tokens.push(html[i]);
+      i++;
+    }
+  }
+
+  let tokenIdx = 0;
+  let currentHtml = '';
+  
+  function typeNext() {
+    if (tokenIdx >= tokens.length) return;
+    
+    // Instantly append tags
+    while (tokenIdx < tokens.length && tokens[tokenIdx].startsWith('<')) {
+      currentHtml += tokens[tokenIdx];
+      tokenIdx++;
+    }
+    
+    if (tokenIdx < tokens.length) {
+      currentHtml += tokens[tokenIdx];
+      tokenIdx++;
+    }
+    
+    div.innerHTML = currentHtml;
+    container.scrollTop = container.scrollHeight;
+    
+    if (tokenIdx < tokens.length) {
+      setTimeout(typeNext, 15);
+    }
+  }
+  
+  typeNext();
 }
 
 function generateAIResponse(query) {
