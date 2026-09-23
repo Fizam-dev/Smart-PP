@@ -2108,8 +2108,26 @@ function renderNotaSection(tajukKey) {
 }
 
 // ──────────────────────────────────────────────
-// 19. REKOD KEPUTUSAN (RESULT TRACKING)
+// 19. REKOD KEPUTUSAN & LENCANA (RESULT & BADGES)
 // ──────────────────────────────────────────────
+
+const badgesData = [
+  { id: 'first_try', name: 'Langkah Pertama', desc: 'Menyelesaikan ujian pertama', icon: '🚀' },
+  { id: 'quiz_100', name: 'Pakar Perniagaan', desc: 'Mendapat 100% dalam Kuiz', icon: '💼' },
+  { id: 'hafalan_100', name: 'Master Fakta', desc: 'Mendapat 100% dalam Hafalan', icon: '🧠' },
+  { id: 'exam_100', name: 'Juara Peperiksaan', desc: 'Mendapat 100% dalam Peperiksaan', icon: '🏆' },
+  { id: 'veteran_5', name: 'Pelajar Konsisten', desc: 'Melengkapkan 5 ujian secara keseluruhan', icon: '🔥' }
+];
+
+function getLocalBadges() {
+  const data = localStorage.getItem('pp-badges');
+  return data ? JSON.parse(data) : [];
+}
+
+function saveLocalBadges(badges) {
+  localStorage.setItem('pp-badges', JSON.stringify(badges));
+}
+
 function getLocalResults() {
   const data = localStorage.getItem('pp-results');
   return data ? JSON.parse(data) : [];
@@ -2117,11 +2135,61 @@ function getLocalResults() {
 
 function saveResultToLocal(result) {
   const results = getLocalResults();
-  // Don't save if it's a review view
   if (result.title && result.title.includes('(Semakan Semula)')) return;
   
   results.unshift(result);
   localStorage.setItem('pp-results', JSON.stringify(results));
+  
+  checkBadges(result, results);
+}
+
+function checkBadges(latestResult, allResults) {
+  const userBadges = getLocalBadges();
+  const unlockedNow = [];
+  
+  const addBadge = (id) => {
+    if (!userBadges.includes(id)) {
+      userBadges.push(id);
+      unlockedNow.push(badgesData.find(b => b.id === id));
+    }
+  };
+  
+  // Rule 1: first_try
+  if (allResults.length >= 1) addBadge('first_try');
+  
+  // Rule 2: veteran_5
+  if (allResults.length >= 5) addBadge('veteran_5');
+  
+  // Rule 3: 100% checks
+  if (latestResult.score === latestResult.total && latestResult.total > 0) {
+    if (latestResult.mode === 'quiz') addBadge('quiz_100');
+    if (latestResult.mode === 'hafalan') addBadge('hafalan_100');
+    if (latestResult.mode === 'exam') addBadge('exam_100');
+  }
+  
+  if (unlockedNow.length > 0) {
+    saveLocalBadges(userBadges);
+    unlockedNow.forEach(b => showBadgeNotification(b));
+  }
+}
+
+function showBadgeNotification(badge) {
+  const toast = document.createElement('div');
+  toast.className = 'badge-toast';
+  toast.innerHTML = `
+    <div class="badge-toast-icon">${badge.icon}</div>
+    <div class="badge-toast-text">
+      <strong>Lencana Dibuka!</strong>
+      <span>${badge.name}</span>
+    </div>
+  `;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => { toast.classList.add('show'); }, 100);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
 }
 
 function renderRekodSection() {
@@ -2134,6 +2202,24 @@ function renderRekodSection() {
     if (window.lucide) lucide.createIcons();
     return;
   }
+
+  // Badges UI
+  const userBadges = getLocalBadges();
+  let badgesHtml = `<div class="card" style="margin-bottom:20px;">
+    <h3 style="margin-bottom:16px"><i data-lucide="award" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;color:#f59e0b"></i> Lencana Pencapaian</h3>
+    <div class="badges-grid">
+  `;
+  badgesData.forEach(b => {
+    const isUnlocked = userBadges.includes(b.id);
+    badgesHtml += `
+      <div class="badge-item ${isUnlocked ? 'unlocked' : 'locked'}">
+        <div class="badge-icon">${b.icon}</div>
+        <div class="badge-name">${b.name}</div>
+        <div class="badge-tooltip">${b.desc}</div>
+      </div>
+    `;
+  });
+  badgesHtml += `</div></div>`;
 
   // Draw chart
   let chartHtml = `<div class="card" style="margin-bottom:20px;">
@@ -2196,7 +2282,7 @@ function renderRekodSection() {
   });
   listHtml += `</div></div>`;
 
-  container.innerHTML = chartHtml + listHtml;
+  container.innerHTML = badgesHtml + chartHtml + listHtml;
   if (window.lucide) lucide.createIcons();
 }
 
