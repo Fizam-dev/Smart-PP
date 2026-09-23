@@ -139,23 +139,23 @@ const notaData = {
             title: "Entiti Perniagaan",
             faktaKhusus: ["Milikan tunggal", "Perkongsian", "Syarikat", "Koperasi"],
             details: [
-              { 
-                term: "Milikan Tunggal", 
+              {
+                term: "Milikan Tunggal",
                 desc: "Perniagaan yang ditubuhkan, dimiliki dan diuruskan oleh seorang individu sahaja. Ditubuhkan di bawah Akta Pendaftaran Perniagaan 1956 dan berdaftar dengan SSM.",
                 ciri: { "Milikan": "Seorang individu", "Modal": "Tabungan sendiri atau pinjaman keluarga", "Pengurusan": "Pemilik sendiri", "Liabiliti": "Tidak terhad", "Agihan untung rugi": "Ditanggung sendiri", "Cukai": "Cukai pendapatan perseorangan" }
               },
-              { 
-                term: "Perkongsian", 
+              {
+                term: "Perkongsian",
                 desc: "Perniagaan yang ditubuhkan, dimiliki dan diuruskan oleh dua hingga dua puluh orang pekongsi (kecuali perkongsian profesional). Ditubuhkan di bawah Akta Perkongsian 1961.",
                 ciri: { "Milikan": "2-20 orang rakan kongsi", "Modal": "Sumbangan rakan kongsi", "Pengurusan": "Rakan kongsi aktif", "Liabiliti": "Tidak terhad (kecuali rakan kongsi berhad)", "Agihan untung rugi": "Mengikut perjanjian perkongsian", "Cukai": "Cukai pendapatan perseorangan" }
               },
-              { 
-                term: "Syarikat", 
+              {
+                term: "Syarikat",
                 desc: "Entiti perniagaan yang mempunyai identiti yang berasingan daripada pemiliknya (entiti undang-undang berasingan). Ditubuhkan di bawah Akta Syarikat 2016 dan berdaftar dengan SSM.",
                 ciri: { "Milikan": "Pemegang saham", "Modal": "Jualan saham", "Pengurusan": "Lembaga pengarah", "Liabiliti": "Terhad kepada sumbangan modal", "Agihan untung rugi": "Dividen kepada pemegang saham", "Cukai": "Cukai korporat" }
               },
-              { 
-                term: "Koperasi", 
+              {
+                term: "Koperasi",
                 desc: "Pertubuhan yang ditubuhkan secara sukarela oleh sekumpulan orang untuk memenuhi keperluan ekonomi, sosial dan budaya ahli-ahlinya. Ditubuhkan di bawah Akta Koperasi 1993.",
                 ciri: { "Milikan": "Ahli-ahli koperasi", "Modal": "Yuran dan syer ahli", "Pengurusan": "Lembaga pengarah dipilih ahli", "Liabiliti": "Terhad kepada syer", "Agihan untung rugi": "Dividen mengikut syer", "Cukai": "Dikecualikan (pendapatan <RM300k)" }
               }
@@ -260,15 +260,15 @@ const notaData = {
               "teknik": {
                 title: "Teknik Perancangan Strategik",
                 subItems: [
-                  { 
+                  {
                     name: "Analisis SWOT",
                     faktaKhusus: ["Kekuatan (Strengths)", "Kelemahan (Weaknesses)", "Peluang (Opportunities)", "Ancaman (Threats)"]
                   },
-                  { 
+                  {
                     name: "Analisis TOWS",
                     faktaKhusus: ["Ancaman", "Peluang", "Kelemahan", "Kekuatan"]
                   },
-                  { 
+                  {
                     name: "Analisis PESTEL",
                     faktaKhusus: ["Politik", "Ekonomi", "Sosial", "Teknologi", "Persekitaran (Environment)", "Undang-undang (Legal)"]
                   }
@@ -696,7 +696,7 @@ function buildSearchIndex() {
             let stText = st.title + " ";
             if (st.faktaKhusus) stText += st.faktaKhusus.join(" ") + " ";
             if (st.details) st.details.forEach(d => { stText += d.term + " " + d.desc + " "; });
-            if (st.subItems) st.subItems.forEach(si => { stText += si.name + " "; if(si.faktaKhusus) stText += si.faktaKhusus.join(" ") + " "; });
+            if (st.subItems) st.subItems.forEach(si => { stText += si.name + " "; if (si.faktaKhusus) stText += si.faktaKhusus.join(" ") + " "; });
             index.push({
               id: stKey,
               tajuk: tajuk.title,
@@ -763,6 +763,11 @@ function init() {
   setupDarkModeToggle();
   setupChat();
 
+  const savedName = localStorage.getItem('pp-username') || '';
+  if (document.getElementById('quizNameInput')) document.getElementById('quizNameInput').value = savedName;
+  if (document.getElementById('examNameInput')) document.getElementById('examNameInput').value = savedName;
+  if (document.getElementById('hafalanNameInput')) document.getElementById('hafalanNameInput').value = savedName;
+
   // Show home
   showSection('home');
 }
@@ -813,6 +818,11 @@ function showSection(sectionId) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const activeNav = document.querySelector(`.nav-item[data-section="${sectionId}"]`);
   if (activeNav) activeNav.classList.add('active');
+  
+  if (sectionId === 'rekod') {
+    renderRekodSection();
+  }
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -825,8 +835,11 @@ function setupSearch() {
   const dropdown = document.getElementById('searchDropdown');
   if (!input || !dropdown) return;
 
+  let lastQuery = '';
+
   input.addEventListener('input', () => {
     const query = input.value;
+    lastQuery = query;
     if (query.length < 2) {
       dropdown.classList.remove('active');
       dropdown.innerHTML = '';
@@ -838,14 +851,24 @@ function setupSearch() {
       dropdown.classList.add('active');
       return;
     }
+    const escapedQuery = query.replace(/'/g, "\\'");
     dropdown.innerHTML = results.map(r => `
-      <div class="search-result-item" onclick="navigateToResult('${r.tajukKey}', '${r.sectionKey}')">
+      <div class="search-result-item" onclick="navigateToResult('${r.tajukKey}', '${r.sectionKey}', '${r.id}', '${escapedQuery}')">
         <span class="result-badge">${r.badge} — ${r.section}</span>
         <div class="result-title">${highlightText(r.title, query)}</div>
         <div class="result-preview">${highlightText(r.preview.substring(0, 120), query)}</div>
       </div>
     `).join('');
     dropdown.classList.add('active');
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const activeItem = dropdown.querySelector('.search-result-item');
+      if (activeItem && lastQuery.length >= 2) {
+        activeItem.click();
+      }
+    }
   });
 
   input.addEventListener('focus', () => {
@@ -861,7 +884,7 @@ function setupSearch() {
   });
 }
 
-function navigateToResult(tajukKey, sectionKey) {
+function navigateToResult(tajukKey, sectionKey, id, query) {
   const sectionMap = {
     'tajuk1': 'bab1',
     'tajuk2': 'bab2',
@@ -870,6 +893,60 @@ function navigateToResult(tajukKey, sectionKey) {
   showSection(sectionMap[tajukKey] || 'home');
   document.getElementById('searchDropdown').classList.remove('active');
   document.getElementById('searchInput').value = '';
+
+  if (id) {
+    setTimeout(() => {
+      let target = document.getElementById(`nota-sec-${id}`);
+      if (target) {
+        // open accordion
+        let trigger = target.querySelector('.accordion-trigger') || target.previousElementSibling;
+        if (trigger && trigger.classList.contains('accordion-trigger') && !trigger.classList.contains('active')) {
+          toggleAccordion(trigger);
+        }
+        
+        // open parent accordion if it's a subTopic
+        let parentAccordion = target.closest('.accordion-body');
+        if (parentAccordion) {
+          let parentTrigger = parentAccordion.previousElementSibling;
+          if (parentTrigger && parentTrigger.classList.contains('accordion-trigger') && !parentTrigger.classList.contains('active')) {
+            toggleAccordion(parentTrigger);
+          }
+        }
+
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Highlight
+        if (query) {
+          clearHighlights();
+          const body = target.querySelector('.accordion-body') || target;
+          const terms = query.trim().split(/\s+/).filter(t => t.length >= 2);
+          
+          terms.forEach(term => {
+            const regex = new RegExp(`(?![^<]*>)(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            body.innerHTML = body.innerHTML.replace(regex, '<mark class="temp-highlight">$1</mark>');
+          });
+
+          // Add a global click listener to remove the highlight
+          setTimeout(() => {
+            const removeHighlight = (e) => {
+              if (e.target.closest('.temp-highlight') || e.target.closest('.accordion-trigger')) return;
+              clearHighlights();
+              document.removeEventListener('click', removeHighlight);
+            };
+            document.addEventListener('click', removeHighlight);
+          }, 100);
+        }
+      }
+    }, 100);
+  }
+}
+
+function clearHighlights() {
+  document.querySelectorAll('mark.temp-highlight').forEach(mark => {
+    const parent = mark.parentNode;
+    parent.replaceChild(document.createTextNode(mark.textContent), mark);
+    parent.normalize();
+  });
 }
 
 // ──────────────────────────────────────────────
@@ -1000,7 +1077,7 @@ function generateAIResponse(query) {
 
   // Greeting
   if (q.match(/^(hi|hello|hai|assalamualaikum|salam)/)) {
-    return "Waalaikumussalam! 👋 Saya adalah pembantu AI untuk Pengajian Perniagaan Sem 1. Apa yang anda ingin tahu?";
+    return "Waalaikumussalam! 👋 Saya adalah pembantu AI untuk SMART PP. Apa yang anda ingin tahu?";
   }
 
   // Find matching knowledge — improved to show definitions
@@ -1081,7 +1158,7 @@ function generateAIResponse(query) {
   // Fallback responses
   const fallbacks = [
     "Maaf, saya tidak pasti tentang soalan itu. Cuba tanya tentang topik seperti <strong>faktor pengeluaran</strong>, <strong>fungsi pengurusan</strong>, atau <strong>gaya pembuatan keputusan</strong>.",
-    "Saya boleh membantu anda dengan topik Pengajian Perniagaan Sem 1 seperti Perniagaan & Persekitaran, Pengurusan, dan Pembuatan Keputusan. Cuba soal semula!",
+    "Saya boleh membantu anda dengan topik SMART PP seperti Perniagaan & Persekitaran, Pengurusan, dan Pembuatan Keputusan. Cuba soal semula!",
     "Hmm, cuba tanya soalan yang lebih spesifik. Contoh: 'Apakah bahan mentah?' atau 'Nyatakan fungsi pengurusan' atau 'Definisi keusahawanan'."
   ];
   return fallbacks[Math.floor(Math.random() * fallbacks.length)];
@@ -1137,11 +1214,20 @@ let quizState = null;
 function startQuiz() {
   const bab = document.getElementById('quizBabSelect').value;
   const timerMinutes = parseInt(document.getElementById('quizTimerSelect').value);
+  const userNameInput = document.getElementById('quizNameInput');
+  const userName = userNameInput ? userNameInput.value.trim() : '';
+
+  if (!userName) {
+    alert("Sila masukkan nama anda sebelum bermula.");
+    return;
+  }
+  localStorage.setItem('pp-username', userName);
 
   const questions = quizData.filter(q => bab === 'all' || q.bab === bab);
   const shuffled = [...questions].sort(() => Math.random() - 0.5).slice(0, 10);
 
   quizState = {
+    userName,
     questions: shuffled,
     selections: new Array(shuffled.length).fill(null),
     bab,
@@ -1239,6 +1325,7 @@ function submitQuiz() {
 
   const elapsed = Math.floor((Date.now() - quizState.startTime) / 1000);
   showUniversalResult({
+    userName: quizState.userName,
     title: 'Kuiz Interaktif',
     score,
     total: qs.length,
@@ -1261,6 +1348,14 @@ function startExam() {
   const bab = document.getElementById('examBabSelect').value;
   const timerMinutes = parseInt(document.getElementById('examTimerSelect').value);
   const examType = document.getElementById('examTypeSelect').value;
+  const userNameInput = document.getElementById('examNameInput');
+  const userName = userNameInput ? userNameInput.value.trim() : '';
+
+  if (!userName) {
+    alert("Sila masukkan nama anda sebelum bermula.");
+    return;
+  }
+  localStorage.setItem('pp-username', userName);
 
   let pilihanQs = [];
   let strukturQs = [];
@@ -1295,6 +1390,7 @@ function startExam() {
   });
 
   examState = {
+    userName,
     questions: allQuestions,
     pilihanSelections: {},  // qi -> Set of selected strings
     strukturAnswers: {},    // qi -> string
@@ -1435,6 +1531,7 @@ function submitExam() {
 
   const elapsed = Math.floor((Date.now() - examState.startTime) / 1000);
   showUniversalResult({
+    userName: examState.userName,
     title: 'Peperiksaan Fakta Khusus',
     score,
     total: totalPoints,
@@ -1457,11 +1554,20 @@ let hafalanState = null;
 function startHafalan() {
   const bab = document.getElementById('hafalanBabSelect').value;
   const timerMinutes = parseInt(document.getElementById('hafalanTimerSelect').value);
+  const userNameInput = document.getElementById('hafalanNameInput');
+  const userName = userNameInput ? userNameInput.value.trim() : '';
+
+  if (!userName) {
+    alert("Sila masukkan nama anda sebelum bermula.");
+    return;
+  }
+  localStorage.setItem('pp-username', userName);
 
   let questions = examData.filter(q => bab === 'all' || q.bab === bab);
   questions = [...questions].sort(() => Math.random() - 0.5);
 
   hafalanState = {
+    userName,
     questions,
     answers: {},  // qi -> [string, string, ...]
     bab,
@@ -1552,12 +1658,62 @@ function submitHafalan() {
     let correctCount = 0;
     const details = [];
 
+    const isProses = q.soalan.toLowerCase().includes('proses');
+    let matchedCorrectIndices = new Set();
+    
+    // Pass 1: find matches
+    let matchResults = [];
     q.jawapan.forEach((correct, bi) => {
       const user = (userAnswers[bi] || '').trim();
-      // Flexible matching: case-insensitive + trim
-      const isMatch = user.toLowerCase() === correct.toLowerCase();
+      let isMatch = false;
+      let actualMatched = correct;
+      
+      if (isProses) {
+        if (user.toLowerCase() === correct.toLowerCase()) {
+          isMatch = true;
+        }
+      } else {
+        if (user) {
+          const foundIdx = q.jawapan.findIndex((ans, idx) => 
+            ans.toLowerCase() === user.toLowerCase() && !matchedCorrectIndices.has(idx)
+          );
+          if (foundIdx !== -1) {
+            isMatch = true;
+            matchedCorrectIndices.add(foundIdx);
+            actualMatched = q.jawapan[foundIdx];
+          }
+        }
+      }
+      
       if (isMatch) correctCount++;
-      details.push({ num: bi + 1, user, correct, isMatch });
+      matchResults.push({ num: bi + 1, user, isMatch, actualMatched });
+    });
+
+    // Pass 2: assign unused correct answers to wrong answers
+    let unusedCorrectAnswers = [];
+    if (!isProses) {
+      q.jawapan.forEach((ans, idx) => {
+        if (!matchedCorrectIndices.has(idx)) {
+          unusedCorrectAnswers.push(ans);
+        }
+      });
+    }
+
+    matchResults.forEach((res, bi) => {
+      let correctToDisplay = res.actualMatched;
+      if (!res.isMatch && !isProses) {
+        correctToDisplay = unusedCorrectAnswers.shift() || q.jawapan[bi];
+      } else if (!res.isMatch && isProses) {
+        correctToDisplay = q.jawapan[bi];
+      }
+      
+      details.push({
+        num: res.num,
+        user: res.user,
+        correct: correctToDisplay,
+        isMatch: res.isMatch,
+        actualMatched: res.actualMatched
+      });
     });
 
     score += correctCount;
@@ -1573,6 +1729,7 @@ function submitHafalan() {
 
   const elapsed = Math.floor((Date.now() - hafalanState.startTime) / 1000);
   showUniversalResult({
+    userName: hafalanState.userName,
     title: 'Hafalan Fakta Khusus',
     score,
     total: totalPoints,
@@ -1604,6 +1761,20 @@ function showUniversalResult(opts) {
   const minsUsed = Math.floor(opts.elapsed / 60);
   const secsUsed = opts.elapsed % 60;
 
+  const userName = opts.userName || localStorage.getItem('pp-username') || 'Pelajar';
+
+  saveResultToLocal({
+    id: Date.now().toString(),
+    date: new Date().toISOString(),
+    userName,
+    mode: opts.mode,
+    score: opts.score,
+    total: opts.total,
+    elapsed: opts.elapsed,
+    title: opts.title,
+    reviewItems: opts.reviewItems
+  });
+
   const unitLabel = opts.isPoints ? 'poin' : 'soalan betul';
 
   // Build review HTML
@@ -1617,7 +1788,7 @@ function showUniversalResult(opts) {
       // Hafalan: show each blank
       answerDetail = item.hafalanDetails.map(d => {
         if (d.isMatch) {
-          return `<span class="correct-ans">${d.num}. ${d.correct} ✓</span>`;
+          return `<span class="correct-ans">${d.num}. ${d.actualMatched || d.correct} ✓</span>`;
         } else {
           return `<span>${d.num}. ${d.user ? `<span class="user-wrong">${d.user}</span>` : '<em>kosong</em>'} → <span class="correct-ans">${d.correct}</span></span>`;
         }
@@ -1647,6 +1818,7 @@ function showUniversalResult(opts) {
       <div class="result-capture-area" id="resultCaptureArea">
         <div class="result-header-card">
           <h2>${opts.title}</h2>
+          <div style="font-size:1.1rem; font-weight:600; color:var(--text-secondary); margin-bottom:12px;"><i data-lucide="user" style="width:16px;height:16px;vertical-align:-2px"></i> ${userName}</div>
           <div class="result-score-big">${opts.score} / ${opts.total}</div>
           <div class="result-score-label">${unitLabel} · ${pct}%</div>
           <div class="result-grade">${grade}</div>
@@ -1663,7 +1835,7 @@ function showUniversalResult(opts) {
         </div>
         <div class="result-watermark">
           <i data-lucide="graduation-cap" style="width:12px;height:12px"></i>
-          Pengajian Perniagaan Sem 1 — Developed by FizamCyberSec@Pizam Parker
+          SMART PP (Student Mastery And Revision Technology) — Developed by FizamCyberSec@Pizam Parker
         </div>
       </div>
       <div class="result-actions">
@@ -1750,7 +1922,7 @@ function renderNotaSection(tajukKey) {
 
     for (const subKey in sec.subsections) {
       const sub = sec.subsections[subKey];
-      html += `<div class="accordion">
+      html += `<div class="accordion" id="nota-sec-${subKey}">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
           <span>${sub.title}</span>
           <i data-lucide="chevron-down"></i>
@@ -1790,7 +1962,7 @@ function renderNotaSection(tajukKey) {
       if (sub.subTopics) {
         for (const stKey in sub.subTopics) {
           const st = sub.subTopics[stKey];
-          html += `<div style="margin-top:20px"><h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text-primary)">${st.title}</h3>`;
+          html += `<div style="margin-top:20px" id="nota-sec-${stKey}"><h3 style="font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text-primary)">${st.title}</h3>`;
           if (st.faktaKhusus) {
             html += `<div class="card card-accent" style="padding:14px 18px;margin-bottom:12px"><strong class="text-primary-color" style="display:block;margin-bottom:6px">Fakta Khusus:</strong><ol class="fakta-list">`;
             st.faktaKhusus.forEach(f => { html += `<li>${f}</li>`; });
@@ -1823,7 +1995,121 @@ function renderNotaSection(tajukKey) {
 }
 
 // ──────────────────────────────────────────────
-// 19. LOCKSCREEN
+// 19. REKOD KEPUTUSAN (RESULT TRACKING)
+// ──────────────────────────────────────────────
+function getLocalResults() {
+  const data = localStorage.getItem('pp-results');
+  return data ? JSON.parse(data) : [];
+}
+
+function saveResultToLocal(result) {
+  const results = getLocalResults();
+  // Don't save if it's a review view
+  if (result.title && result.title.includes('(Semakan Semula)')) return;
+  
+  results.unshift(result);
+  localStorage.setItem('pp-results', JSON.stringify(results));
+}
+
+function renderRekodSection() {
+  const container = document.getElementById('rekod-container');
+  if (!container) return;
+
+  const results = getLocalResults();
+  if (results.length === 0) {
+    container.innerHTML = `<div class="card" style="text-align:center;padding:40px"><div style="color:var(--text-tertiary)"><i data-lucide="bar-chart-2" style="width:48px;height:48px;margin-bottom:12px;opacity:0.5"></i></div><h3>Tiada Rekod Dijumpai</h3><p>Anda belum melengkapkan sebarang kuiz atau peperiksaan. Sila cuba mod interaktif untuk merekodkan markah pertama anda.</p></div>`;
+    if (window.lucide) lucide.createIcons();
+    return;
+  }
+
+  // Draw chart
+  let chartHtml = `<div class="card" style="margin-bottom:20px;">
+    <h3 style="margin-bottom:16px"><i data-lucide="trending-up" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"></i> Trend Prestasi</h3>
+    <div style="display:flex; align-items:flex-end; gap:10px; border-bottom: 2px solid var(--border-color); padding-bottom:8px; overflow-x:auto;">
+  `;
+  
+  // Plot up to last 15 attempts in reverse (oldest first for left-to-right trend)
+  const chartData = results.slice(0, 15).reverse();
+  chartData.forEach(r => {
+    const pct = Math.round((r.score / r.total) * 100);
+    let barColor = 'var(--primary)';
+    if (pct < 40) barColor = '#ef4444';
+    else if (pct < 60) barColor = '#f59e0b';
+    
+    chartHtml += `<div style="flex:1; min-width:30px; max-width:60px; display:flex; flex-direction:column; align-items:center;">
+      <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:4px;">${pct}%</div>
+      <div style="width:100%; height:150px; display:flex; align-items:flex-end;">
+        <div style="width:100%; height:${pct}%; background-color:${barColor}; border-radius:4px 4px 0 0; transition: height 0.5s ease;"></div>
+      </div>
+      <div style="font-size:0.7rem; color:var(--text-tertiary); margin-top:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:100%; text-align:center;" title="${r.title}">${r.mode === 'quiz' ? 'QZ' : r.mode === 'exam' ? 'EX' : 'HF'}</div>
+    </div>`;
+  });
+  chartHtml += `</div>
+    <div style="margin-top:16px; font-size:0.8rem; color:var(--text-secondary); display:flex; gap:16px; justify-content:center; flex-wrap:wrap; background-color:var(--bg-secondary); padding:8px; border-radius:6px;">
+      <span style="display:flex; align-items:center; gap:4px;"><i data-lucide="help-circle" style="width:14px;height:14px"></i> <strong>QZ</strong> = Kuiz Interaktif</span>
+      <span style="display:flex; align-items:center; gap:4px;"><i data-lucide="file-text" style="width:14px;height:14px"></i> <strong>EX</strong> = Peperiksaan Fakta</span>
+      <span style="display:flex; align-items:center; gap:4px;"><i data-lucide="brain" style="width:14px;height:14px"></i> <strong>HF</strong> = Hafalan Fakta</span>
+    </div>
+  </div>`;
+
+  // Draw list
+  let listHtml = `<div class="card"><h3 style="margin-bottom:16px"><i data-lucide="history" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"></i> Sejarah Cubaan</h3><div style="display:flex; flex-direction:column; gap:12px;">`;
+  
+  results.forEach((r, idx) => {
+    const dateObj = new Date(r.date);
+    const dateStr = dateObj.toLocaleDateString('ms-MY') + ' ' + dateObj.toLocaleTimeString('ms-MY', {hour: '2-digit', minute:'2-digit'});
+    const pct = Math.round((r.score / r.total) * 100);
+    const minsUsed = Math.floor(r.elapsed / 60);
+    const secsUsed = r.elapsed % 60;
+    const timeStr = `${minsUsed}m ${secsUsed}s`;
+
+    listHtml += `
+    <div style="border: 1px solid var(--border-color); border-radius:8px; padding:12px; display:flex; justify-content:space-between; align-items:center; background-color:var(--bg-primary); flex-wrap:wrap; gap:12px;">
+      <div>
+        <div style="font-weight:600; font-size:1rem; color:var(--text-primary); margin-bottom:4px;">${r.title}</div>
+        <div style="font-size:0.85rem; color:var(--text-secondary); display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+          <span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px"></i> ${dateStr}</span>
+          <span><i data-lucide="clock" style="width:12px;height:12px;vertical-align:-2px"></i> ${timeStr}</span>
+          <span><i data-lucide="user" style="width:12px;height:12px;vertical-align:-2px"></i> ${r.userName}</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div style="text-align:right;">
+          <div style="font-weight:700; font-size:1.1rem; color:var(--primary);">${r.score}/${r.total} <span style="font-size:0.9rem;opacity:0.8">(${pct}%)</span></div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="showRekodDetails(${idx})">Semak</button>
+      </div>
+    </div>`;
+  });
+  listHtml += `</div></div>`;
+
+  container.innerHTML = chartHtml + listHtml;
+  if (window.lucide) lucide.createIcons();
+}
+
+function showRekodDetails(index) {
+  const results = getLocalResults();
+  const r = results[index];
+  if (!r || !r.reviewItems) return;
+
+  showUniversalResult({
+    title: r.title + ' (Semakan Semula)',
+    score: r.score,
+    total: r.total,
+    elapsed: r.elapsed,
+    timerMinutes: 0,
+    reviewItems: r.reviewItems,
+    containerId: 'rekod-container',
+    retryFn: `showSection('rekod')`,
+    backSection: 'rekod',
+    mode: r.mode,
+    isPoints: r.mode === 'exam' || r.mode === 'hafalan',
+    userName: r.userName
+  });
+}
+
+// ──────────────────────────────────────────────
+// 20. LOCKSCREEN
 // ──────────────────────────────────────────────
 function setupLockscreen() {
   const container = document.getElementById('lockscreen-container');
@@ -1833,7 +2119,7 @@ function setupLockscreen() {
   const errorMsg = document.getElementById('lockscreen-error');
 
   // The base64 encoded password for 'Xy7$P@ssw0rd!99'
-  const validHash = 'WHk3JFBAc3N3MHJkITk5'; 
+  const validHash = 'WHk3JFBAc3N3MHJkITk5';
 
   function checkPassword() {
     const input = pwdInput.value;
@@ -1863,7 +2149,7 @@ function setupLockscreen() {
 }
 
 // ──────────────────────────────────────────────
-// 20. INIT ON LOAD
+// 21. INIT ON LOAD
 // ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   setupLockscreen();
