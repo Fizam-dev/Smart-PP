@@ -897,48 +897,88 @@ function navigateToResult(tajukKey, sectionKey, id, query) {
   if (id) {
     setTimeout(() => {
       let target = document.getElementById(`nota-sec-${id}`);
-      if (target) {
-        // open accordion
-        let trigger = target.querySelector('.accordion-trigger') || target.previousElementSibling;
-        if (trigger && trigger.classList.contains('accordion-trigger') && !trigger.classList.contains('active')) {
-          toggleAccordion(trigger);
-        }
-        
-        // open parent accordion if it's a subTopic
-        let parentAccordion = target.closest('.accordion-body');
-        if (parentAccordion) {
-          let parentTrigger = parentAccordion.previousElementSibling;
-          if (parentTrigger && parentTrigger.classList.contains('accordion-trigger') && !parentTrigger.classList.contains('active')) {
-            toggleAccordion(parentTrigger);
-          }
-        }
+      if (!target) return;
 
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        // Highlight
-        if (query) {
-          clearHighlights();
-          const body = target.querySelector('.accordion-body') || target;
-          const terms = query.trim().split(/\s+/).filter(t => t.length >= 2);
-          
-          terms.forEach(term => {
-            const regex = new RegExp(`(?![^<]*>)(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-            body.innerHTML = body.innerHTML.replace(regex, '<mark class="temp-highlight">$1</mark>');
-          });
-
-          // Add a global click listener to remove the highlight
-          setTimeout(() => {
-            const removeHighlight = (e) => {
-              if (e.target.closest('.temp-highlight') || e.target.closest('.accordion-trigger')) return;
-              clearHighlights();
-              document.removeEventListener('click', removeHighlight);
-            };
-            document.addEventListener('click', removeHighlight);
-          }, 100);
+      // Step 1: Open parent accordion if this is a subTopic nested inside an accordion-body
+      let parentBody = target.closest('.accordion-body');
+      if (parentBody) {
+        let parentTrigger = parentBody.previousElementSibling;
+        if (parentTrigger && parentTrigger.classList.contains('accordion-trigger') && !parentTrigger.classList.contains('active')) {
+          parentTrigger.classList.add('active');
+          parentBody.classList.add('active');
         }
       }
-    }, 100);
+
+      // Step 2: Open the target accordion itself (if it is an accordion)
+      let trigger = target.querySelector('.accordion-trigger');
+      if (trigger && !trigger.classList.contains('active')) {
+        trigger.classList.add('active');
+        let body = trigger.nextElementSibling;
+        if (body) body.classList.add('active');
+      }
+
+      // Step 3: Scroll into view
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Step 4: Flash the target with a subtle pulse
+        target.style.transition = 'box-shadow 0.4s ease';
+        target.style.boxShadow = '0 0 0 3px var(--primary-glow)';
+        target.style.borderRadius = '12px';
+        setTimeout(() => { target.style.boxShadow = ''; }, 2500);
+      }, 50);
+
+      // Step 5: Highlight matching text
+      if (query) {
+        clearHighlights();
+        const searchArea = target.querySelector('.accordion-body') || target;
+        highlightInDOM(searchArea, query);
+
+        // Remove highlight on click elsewhere
+        setTimeout(() => {
+          const removeHandler = (e) => {
+            if (e.target.closest('.temp-highlight') || e.target.closest('.accordion-trigger')) return;
+            clearHighlights();
+            document.removeEventListener('click', removeHandler);
+          };
+          document.addEventListener('click', removeHandler);
+        }, 200);
+      }
+    }, 150);
   }
+}
+
+function highlightInDOM(root, query) {
+  const terms = query.trim().split(/\s+/).filter(t => t.length >= 2);
+  if (terms.length === 0) return;
+
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  const pattern = new RegExp(`(${terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+
+  textNodes.forEach(node => {
+    if (!pattern.test(node.nodeValue)) return;
+    pattern.lastIndex = 0; // reset regex
+    const frag = document.createDocumentFragment();
+    let lastIdx = 0;
+    let match;
+    while ((match = pattern.exec(node.nodeValue)) !== null) {
+      if (match.index > lastIdx) {
+        frag.appendChild(document.createTextNode(node.nodeValue.slice(lastIdx, match.index)));
+      }
+      const mark = document.createElement('mark');
+      mark.className = 'temp-highlight';
+      mark.textContent = match[0];
+      frag.appendChild(mark);
+      lastIdx = pattern.lastIndex;
+    }
+    if (lastIdx < node.nodeValue.length) {
+      frag.appendChild(document.createTextNode(node.nodeValue.slice(lastIdx)));
+    }
+    node.parentNode.replaceChild(frag, node);
+  });
 }
 
 function clearHighlights() {
@@ -948,6 +988,7 @@ function clearHighlights() {
     parent.normalize();
   });
 }
+
 
 // ──────────────────────────────────────────────
 // 9. THEME PICKER
