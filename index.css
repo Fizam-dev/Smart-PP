@@ -382,7 +382,8 @@ mark.temp-highlight {
   align-items: center;
 }
 
-.search-input-wrapper i {
+.search-input-wrapper i,
+.search-input-wrapper svg {
   position: absolute;
   left: 14px;
   color: var(--text-tertiary);
