@@ -135,8 +135,8 @@ const notaData = {
               { term: "Masyarakat", desc: "Penduduk setempat yang mempengaruhi perniagaan melalui kuasa beli, pandangan terhadap imej perniagaan dan tanggungjawab sosial." }
             ]
           },
-          "1.3.3": {
-            title: "Entiti Perniagaan",
+          "1.4": {
+            title: "Ciri-ciri Entiti Perniagaan",
             faktaKhusus: ["Milikan tunggal", "Perkongsian", "Syarikat", "Koperasi"],
             details: [
               {
@@ -185,10 +185,28 @@ const notaData = {
           "2.1.3": {
             title: "Peranan Pengurus",
             content: "Peranan pengurus boleh dilihat dari dua perspektif utama: Henry Mintzberg dan Peter Drucker.",
-            details: [
-              { term: "Peranan Mengikut Henry Mintzberg", desc: "1) Antara perorangan/interpersonal — sebagai ketua, pemimpin dan penghubung. 2) Peranan bermaklumat (informational) — sebagai pemantau, penyebar dan jurucakap. 3) Pembuat keputusan — sebagai usahawan, pengendali gangguan, pengagih sumber dan perunding." },
-              { term: "Peranan Mengikut Peter Drucker", desc: "1) Menetapkan objektif. 2) Mengorganisasi. 3) Memotivasi dan berkomunikasi. 4) Mengukur prestasi. 5) Membangun sumber manusia." }
-            ]
+            subTopics: {
+              "mintzberg": {
+                title: "Peranan Mengikut Henry Mintzberg",
+                faktaKhusus: ["Antara perorangan/interpersonal", "Peranan bermaklumat (informational)", "Pembuatan keputusan"],
+                details: [
+                  { term: "Antara perorangan/interpersonal", desc: "Peranan sebagai ketua (figurehead), pemimpin (leader) dan penghubung (liaison). Pengurus mewakili organisasi dalam upacara rasmi, memimpin dan memotivasikan pekerja, serta menjalinkan hubungan dengan pihak luar." },
+                  { term: "Peranan bermaklumat (informational)", desc: "Peranan sebagai pemantau (monitor), penyebar (disseminator) dan jurucakap (spokesperson). Pengurus mengumpul maklumat, menyebarkan maklumat kepada subordinat, dan menjadi wakil organisasi kepada pihak luar." },
+                  { term: "Pembuatan keputusan", desc: "Peranan sebagai usahawan (entrepreneur), pengendali gangguan (disturbance handler), pengagih sumber (resource allocator) dan perunding (negotiator). Pengurus mencari peluang baharu, menyelesaikan masalah, mengagihkan sumber dan berunding dengan pihak lain." }
+                ]
+              },
+              "drucker": {
+                title: "Peranan Mengikut Peter Drucker",
+                faktaKhusus: ["Menetapkan objektif", "Mengorganisasi", "Memotivasi dan berkomunikasi", "Mengukur prestasi", "Membangun sumber manusia"],
+                details: [
+                  { term: "Menetapkan objektif", desc: "Pengurus perlu menentukan visi, misi, dan matlamat organisasi. Pengurus juga bertanggungjawab dalam memastikan setiap pekerja memahami dan menyelaraskan usaha mereka ke arah mencapai objektif tersebut." },
+                  { term: "Mengorganisasi", desc: "Pengurus perlu membentuk struktur organisasi yang jelas, menetapkan peranan dan tanggungjawab pekerja, serta mengagihkan sumber dengan baik bagi memastikan kelancaran operasi." },
+                  { term: "Memotivasi dan berkomunikasi", desc: "Pengurus perlu memotivasikan pekerja supaya bekerja dengan penuh dedikasi serta mewujudkan saluran komunikasi yang berkesan dalam organisasi. Ini termasuk memberi penghargaan, maklum balas yang membina, dan menyelesaikan konflik." },
+                  { term: "Mengukur prestasi", desc: "Pengurus perlu menilai pencapaian pekerja serta organisasi secara keseluruhan. Ini boleh dilakukan melalui analisis data, penilaian prestasi, dan maklum balas yang membolehkan organisasi memperbaiki kelemahan serta meningkatkan produktiviti." },
+                  { term: "Membangun sumber manusia", desc: "Drucker menekankan bahawa pengurus perlu melatih dan membangunkan pekerja mereka untuk meningkatkan kemahiran serta keupayaan mereka. Ini termasuk memberikan peluang latihan dan pembangunan diri agar organisasi kekal berdaya saing." }
+                ]
+              }
+            }
           }
         }
       },
@@ -549,7 +567,11 @@ const examData = [
   { bab: "1", soalan: "Nyatakan 4 kepentingan perniagaan antarabangsa.", jawapan: ["Tukaran asing", "Pasaran luas", "Pemindahan teknologi", "Pemindahan kepakaran"], section: "1.2e" },
   { bab: "1", soalan: "Nyatakan 7 faktor persekitaran umum.", jawapan: ["Ekonomi", "Persaingan dan jaringan", "Sosiobudaya", "Politik dan perundangan", "Teknologi", "Prasarana", "Antarabangsa"], section: "1.3.1" },
   { bab: "1", soalan: "Nyatakan 8 faktor persekitaran tugas.", jawapan: ["Pelanggan", "Pembekal", "Pembiaya", "Pemodal/pelabur", "Pesaing", "Kerajaan", "Pekerja", "Masyarakat"], section: "1.3.2" },
-  { bab: "1", soalan: "Nyatakan 4 ciri entiti perniagaan.", jawapan: ["Milikan tunggal", "Perkongsian", "Syarikat", "Koperasi"], section: "1.3.3" },
+  { bab: "1", soalan: "Nyatakan 4 ciri entiti perniagaan.", jawapan: ["Milikan tunggal", "Perkongsian", "Syarikat", "Koperasi"], section: "1.4" },
+
+  // BAB 2 — Peranan Pengurus (Fakta Khusus dari PDF)
+  { bab: "2", soalan: "Nyatakan 3 peranan pengurus mengikut Henry Mintzberg.", jawapan: ["Antara perorangan/interpersonal", "Peranan bermaklumat (informational)", "Pembuatan keputusan"], section: "2.1.3" },
+  { bab: "2", soalan: "Nyatakan 5 peranan pengurus mengikut Peter Drucker.", jawapan: ["Menetapkan objektif", "Mengorganisasi", "Memotivasi dan berkomunikasi", "Mengukur prestasi", "Membangun sumber manusia"], section: "2.1.3" },
 
   // BAB 2
   { bab: "2", soalan: "Nyatakan 4 fungsi pengurusan.", jawapan: ["Perancangan", "Pengorganisasian", "Kepimpinan", "Pengawalan"], section: "2.1.1" },
@@ -686,7 +708,7 @@ function buildSearchIndex() {
           sectionKey: secKey,
           title: sub.title,
           searchText: searchText.toLowerCase(),
-          badge: `Tajuk ${tajukKey.replace('tajuk', '')}`,
+          badge: `Bab ${tajukKey.replace('tajuk', '')}`,
           preview: sub.content || (sub.details ? sub.details.map(d => d.term).join(', ') : sub.faktaKhusus ? sub.faktaKhusus.join(', ') : '')
         });
         // Also add subTopics
@@ -705,7 +727,7 @@ function buildSearchIndex() {
               sectionKey: secKey,
               title: st.title,
               searchText: stText.toLowerCase(),
-              badge: `Tajuk ${tajukKey.replace('tajuk', '')}`,
+              badge: `Bab ${tajukKey.replace('tajuk', '')}`,
               preview: st.faktaKhusus ? st.faktaKhusus.join(', ') : ''
             });
           }
@@ -2111,12 +2133,223 @@ function renderNotaSection(tajukKey) {
 // 19. REKOD KEPUTUSAN & LENCANA (RESULT & BADGES)
 // ──────────────────────────────────────────────
 
+// ──────────────────────────────────────────────
+// 19. STREAK SYSTEM (TikTok-style)
+// ──────────────────────────────────────────────
+
+function getStreakData() {
+  const data = localStorage.getItem('pp-streak');
+  return data ? JSON.parse(data) : { count: 0, lastDate: null };
+}
+
+function saveStreakData(streakData) {
+  localStorage.setItem('pp-streak', JSON.stringify(streakData));
+}
+
+function updateStreak() {
+  const streakData = getStreakData();
+  const today = new Date().toDateString();
+  
+  if (streakData.lastDate === today) {
+    // Already recorded today
+    return streakData.count;
+  }
+  
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toDateString();
+  
+  if (streakData.lastDate === yesterdayStr) {
+    // Consecutive day!
+    streakData.count += 1;
+  } else if (streakData.lastDate === null) {
+    // First ever activity
+    streakData.count = 1;
+  } else {
+    // Streak broken — reset to 1
+    streakData.count = 1;
+  }
+  
+  streakData.lastDate = today;
+  saveStreakData(streakData);
+  return streakData.count;
+}
+
+function getStreakTier(count) {
+  if (count >= 100) return { tier: 'legendary', color: '#9333ea', glow: 'rgba(147,51,234,0.4)', label: 'Legenda', emoji: '🔥', bgGradient: 'linear-gradient(135deg, #7c3aed, #a855f7, #c084fc)' };
+  if (count >= 50) return { tier: 'epic', color: '#ea580c', glow: 'rgba(234,88,12,0.4)', label: 'Epik', emoji: '🔥', bgGradient: 'linear-gradient(135deg, #dc2626, #ea580c, #f97316)' };
+  if (count >= 3) return { tier: 'active', color: '#eab308', glow: 'rgba(234,179,8,0.4)', label: 'Aktif', emoji: '🔥', bgGradient: 'linear-gradient(135deg, #ca8a04, #eab308, #facc15)' };
+  return { tier: 'none', color: 'var(--text-tertiary)', glow: 'transparent', label: 'Baru', emoji: '💤', bgGradient: 'linear-gradient(135deg, var(--bg-secondary), var(--bg-secondary))' };
+}
+
+function renderStreakWidget() {
+  const streakData = getStreakData();
+  const count = streakData.count;
+  const tier = getStreakTier(count);
+  
+  let nextMilestone = '';
+  if (count < 3) nextMilestone = `<div class="streak-next">Api menyala pada 3 hari berturut-turut!</div>`;
+  else if (count < 50) nextMilestone = `<div class="streak-next">Lagi ${50 - count} hari untuk api oren 🔥</div>`;
+  else if (count < 100) nextMilestone = `<div class="streak-next">Lagi ${100 - count} hari untuk api ungu 🔥</div>`;
+  else nextMilestone = `<div class="streak-next">Status Legenda! Teruskan! 👑</div>`;
+
+  return `
+    <div class="streak-card ${tier.tier}">
+      <div class="streak-flame-container">
+        <div class="streak-flame ${tier.tier}" style="color:${tier.color};text-shadow:0 0 20px ${tier.glow}">
+          ${tier.emoji}
+        </div>
+        <div class="streak-count" style="color:${tier.color}">${count}</div>
+        <div class="streak-label">Hari Berturut-turut</div>
+      </div>
+      <div class="streak-tier-badge" style="background:${tier.bgGradient}">
+        ${tier.label}
+      </div>
+      ${nextMilestone}
+      <div class="streak-milestones">
+        <div class="streak-milestone ${count >= 3 ? 'achieved' : ''}">
+          <span class="milestone-dot" style="background:${count >= 3 ? '#eab308' : 'var(--border-color)'}"></span>
+          <span>3 hari</span>
+        </div>
+        <div class="streak-milestone-line ${count >= 3 ? 'achieved' : ''}"></div>
+        <div class="streak-milestone ${count >= 50 ? 'achieved' : ''}">
+          <span class="milestone-dot" style="background:${count >= 50 ? '#ea580c' : 'var(--border-color)'}"></span>
+          <span>50 hari</span>
+        </div>
+        <div class="streak-milestone-line ${count >= 50 ? 'achieved' : ''}"></div>
+        <div class="streak-milestone ${count >= 100 ? 'achieved' : ''}">
+          <span class="milestone-dot" style="background:${count >= 100 ? '#9333ea' : 'var(--border-color)'}"></span>
+          <span>100 hari</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ──────────────────────────────────────────────
+// 20. PENILAIAN SEMASA (Overall Assessment)
+// ──────────────────────────────────────────────
+
+function calculatePenilaianSemasa() {
+  const results = getLocalResults();
+  if (results.length === 0) return null;
+
+  // Separate results by mode
+  const quizResults = results.filter(r => r.mode === 'quiz');
+  const examResults = results.filter(r => r.mode === 'exam');
+  const hafalanResults = results.filter(r => r.mode === 'hafalan');
+
+  // Calculate average percentage for each mode
+  const avgPct = (arr) => {
+    if (arr.length === 0) return null;
+    const total = arr.reduce((sum, r) => sum + (r.score / r.total * 100), 0);
+    return total / arr.length;
+  };
+
+  const quizAvg = avgPct(quizResults);    // Weight: 30%
+  const examAvg = avgPct(examResults);
+  const hafalanAvg = avgPct(hafalanResults);
+
+  // Calculate simple unweighted average
+  let activeModes = 0;
+  let totalSum = 0;
+
+  if (quizAvg !== null) { totalSum += quizAvg; activeModes += 1; }
+  if (examAvg !== null) { totalSum += examAvg; activeModes += 1; }
+  if (hafalanAvg !== null) { totalSum += hafalanAvg; activeModes += 1; }
+
+  const overall = activeModes > 0 ? totalSum / activeModes : 0;
+
+  return {
+    quizAvg: quizAvg !== null ? Math.round(quizAvg) : null,
+    quizCount: quizResults.length,
+    examAvg: examAvg !== null ? Math.round(examAvg) : null,
+    examCount: examResults.length,
+    hafalanAvg: hafalanAvg !== null ? Math.round(hafalanAvg) : null,
+    hafalanCount: hafalanResults.length,
+    overall: Math.round(overall)
+  };
+}
+
+function renderPenilaianSemasa() {
+  const penilaian = calculatePenilaianSemasa();
+  if (!penilaian) return '';
+
+  const getGrade = (pct) => {
+    if (pct >= 90) return { label: 'A+', color: '#10b981' };
+    if (pct >= 80) return { label: 'A', color: '#10b981' };
+    if (pct >= 70) return { label: 'B+', color: '#3b82f6' };
+    if (pct >= 60) return { label: 'B', color: '#3b82f6' };
+    if (pct >= 50) return { label: 'C+', color: '#f59e0b' };
+    if (pct >= 40) return { label: 'C', color: '#f59e0b' };
+    return { label: 'D', color: '#ef4444' };
+  };
+
+  const overallGrade = getGrade(penilaian.overall);
+
+  const renderBar = (label, avg, count, icon) => {
+    if (avg === null) return `
+      <div class="penilaian-row">
+        <div class="penilaian-row-header">
+          <span><i data-lucide="${icon}" style="width:14px;height:14px;vertical-align:-2px"></i> ${label}</span>
+        </div>
+        <div class="penilaian-bar-track"><div class="penilaian-bar" style="width:0%;background:var(--border-color)"></div></div>
+        <div class="penilaian-info">Belum dicuba</div>
+      </div>`;
+    
+    const grade = getGrade(avg);
+    return `
+      <div class="penilaian-row">
+        <div class="penilaian-row-header">
+          <span><i data-lucide="${icon}" style="width:14px;height:14px;vertical-align:-2px"></i> ${label}</span>
+        </div>
+        <div class="penilaian-bar-track"><div class="penilaian-bar" style="width:${avg}%;background:${grade.color}"></div></div>
+        <div class="penilaian-info">${avg}% · Gred ${grade.label} · ${count} cubaan</div>
+      </div>`;
+  };
+
+  return `
+    <div class="card penilaian-card" style="margin-bottom:20px;">
+      <h3 style="margin-bottom:16px;display:flex;align-items:center;gap:8px">
+        <i data-lucide="gauge" style="width:18px;height:18px;color:var(--primary)"></i> Penilaian Semasa
+      </h3>
+      <div class="penilaian-overall">
+        <div class="penilaian-overall-circle" style="border-color:${overallGrade.color}">
+          <div class="penilaian-overall-pct">${penilaian.overall}%</div>
+          <div class="penilaian-overall-grade" style="color:${overallGrade.color}">Gred ${overallGrade.label}</div>
+        </div>
+        <div class="penilaian-overall-label">Purata Keseluruhan</div>
+      </div>
+      <div class="penilaian-breakdown">
+        ${renderBar('Kuiz Interaktif', penilaian.quizAvg, penilaian.quizCount, 'help-circle')}
+        ${renderBar('Peperiksaan Fakta', penilaian.examAvg, penilaian.examCount, 'file-text')}
+        ${renderBar('Hafalan Fakta', penilaian.hafalanAvg, penilaian.hafalanCount, 'brain')}
+      </div>
+      <div style="margin-top:12px;padding:10px;background:var(--bg-secondary);border-radius:8px;font-size:0.78rem;color:var(--text-tertiary);text-align:center">
+        <i data-lucide="info" style="width:12px;height:12px;vertical-align:-2px"></i>
+        Formula: Purata ringkas daripada semua mod yang dicuba
+      </div>
+    </div>
+  `;
+}
+
+// ──────────────────────────────────────────────
+// 21. BADGES & REKOD (Harder requirements)
+// ──────────────────────────────────────────────
+
 const badgesData = [
   { id: 'first_try', name: 'Langkah Pertama', desc: 'Menyelesaikan ujian pertama', icon: '🚀' },
-  { id: 'quiz_100', name: 'Pakar Perniagaan', desc: 'Mendapat 100% dalam Kuiz', icon: '💼' },
-  { id: 'hafalan_100', name: 'Master Fakta', desc: 'Mendapat 100% dalam Hafalan', icon: '🧠' },
-  { id: 'exam_100', name: 'Juara Peperiksaan', desc: 'Mendapat 100% dalam Peperiksaan', icon: '🏆' },
-  { id: 'veteran_5', name: 'Pelajar Konsisten', desc: 'Melengkapkan 5 ujian secara keseluruhan', icon: '🔥' }
+  { id: 'quiz_90_3', name: 'Pakar Kuiz', desc: 'Mendapat 90%+ dalam Kuiz sebanyak 3 kali', icon: '💼', requirement: 'quiz_90_times_3' },
+  { id: 'hafalan_100_3', name: 'Master Fakta', desc: 'Mendapat 100% dalam Hafalan sebanyak 3 kali', icon: '🧠', requirement: 'hafalan_100_times_3' },
+  { id: 'exam_90_3', name: 'Juara Peperiksaan', desc: 'Mendapat 90%+ dalam Peperiksaan sebanyak 3 kali', icon: '🏆', requirement: 'exam_90_times_3' },
+  { id: 'veteran_10', name: 'Pelajar Konsisten', desc: 'Melengkapkan 10 ujian secara keseluruhan', icon: '📚' },
+  { id: 'streak_7', name: 'Api Menyala 🔥', desc: 'Mengekalkan streak 7 hari berturut-turut', icon: '🔥' },
+  { id: 'streak_30', name: 'Api Berkobar', desc: 'Mengekalkan streak 30 hari berturut-turut', icon: '🌟' },
+  { id: 'all_bab_quiz', name: 'Penguasa Semua Bab', desc: 'Jawab kuiz dari setiap Bab (1,2,3) dan dapat 80%+ semua', icon: '👑' },
+  { id: 'perfect_streak_5', name: 'Tanpa Cela', desc: 'Mendapat 100% dalam 5 ujian berturut-turut', icon: '💎' },
+  { id: 'all_modes', name: 'Serba Boleh', desc: 'Menyelesaikan Kuiz, Peperiksaan dan Hafalan sekurang-kurangnya 3 kali setiap satu', icon: '⚡' },
+  { id: 'overall_80', name: 'Prestasi Cemerlang', desc: 'Penilaian Semasa mencapai 80%+', icon: '🎯' },
+  { id: 'veteran_50', name: 'Veteran Utama', desc: 'Melengkapkan 50 ujian secara keseluruhan', icon: '🏅' }
 ];
 
 function getLocalBadges() {
@@ -2140,6 +2373,9 @@ function saveResultToLocal(result) {
   results.unshift(result);
   localStorage.setItem('pp-results', JSON.stringify(results));
   
+  // Update streak
+  updateStreak();
+  
   checkBadges(result, results);
 }
 
@@ -2150,22 +2386,59 @@ function checkBadges(latestResult, allResults) {
   const addBadge = (id) => {
     if (!userBadges.includes(id)) {
       userBadges.push(id);
-      unlockedNow.push(badgesData.find(b => b.id === id));
+      const badge = badgesData.find(b => b.id === id);
+      if (badge) unlockedNow.push(badge);
     }
   };
   
-  // Rule 1: first_try
+  // Rule 1: first_try — 1 attempt
   if (allResults.length >= 1) addBadge('first_try');
   
-  // Rule 2: veteran_5
-  if (allResults.length >= 5) addBadge('veteran_5');
+  // Rule 2: veteran_10 — 10 attempts
+  if (allResults.length >= 10) addBadge('veteran_10');
   
-  // Rule 3: 100% checks
-  if (latestResult.score === latestResult.total && latestResult.total > 0) {
-    if (latestResult.mode === 'quiz') addBadge('quiz_100');
-    if (latestResult.mode === 'hafalan') addBadge('hafalan_100');
-    if (latestResult.mode === 'exam') addBadge('exam_100');
+  // Rule 3: veteran_50 — 50 attempts
+  if (allResults.length >= 50) addBadge('veteran_50');
+  
+  // Rule 4: quiz_90_3 — 90%+ in quiz 3 times
+  const quiz90Count = allResults.filter(r => r.mode === 'quiz' && (r.score / r.total * 100) >= 90).length;
+  if (quiz90Count >= 3) addBadge('quiz_90_3');
+  
+  // Rule 5: hafalan_100_3 — 100% in hafalan 3 times
+  const hafalan100Count = allResults.filter(r => r.mode === 'hafalan' && r.score === r.total && r.total > 0).length;
+  if (hafalan100Count >= 3) addBadge('hafalan_100_3');
+  
+  // Rule 6: exam_90_3 — 90%+ in exam 3 times
+  const exam90Count = allResults.filter(r => r.mode === 'exam' && (r.score / r.total * 100) >= 90).length;
+  if (exam90Count >= 3) addBadge('exam_90_3');
+  
+  // Rule 7: streak_7
+  const streakData = getStreakData();
+  if (streakData.count >= 7) addBadge('streak_7');
+  
+  // Rule 8: streak_30
+  if (streakData.count >= 30) addBadge('streak_30');
+  
+  // Rule 9: perfect_streak_5 — 5 consecutive 100% results
+  let consecutive100 = 0;
+  for (let i = 0; i < allResults.length; i++) {
+    if (allResults[i].score === allResults[i].total && allResults[i].total > 0) {
+      consecutive100++;
+      if (consecutive100 >= 5) { addBadge('perfect_streak_5'); break; }
+    } else {
+      consecutive100 = 0;
+    }
   }
+  
+  // Rule 10: all_modes — 3 of each mode
+  const quizCount = allResults.filter(r => r.mode === 'quiz').length;
+  const examCount = allResults.filter(r => r.mode === 'exam').length;
+  const hafalanCount = allResults.filter(r => r.mode === 'hafalan').length;
+  if (quizCount >= 3 && examCount >= 3 && hafalanCount >= 3) addBadge('all_modes');
+  
+  // Rule 11: overall_80
+  const penilaian = calculatePenilaianSemasa();
+  if (penilaian && penilaian.overall >= 80) addBadge('overall_80');
   
   if (unlockedNow.length > 0) {
     saveLocalBadges(userBadges);
@@ -2203,10 +2476,16 @@ function renderRekodSection() {
     return;
   }
 
+  // Streak Widget
+  const streakHtml = renderStreakWidget();
+
+  // Penilaian Semasa Widget
+  const penilaianHtml = renderPenilaianSemasa();
+
   // Badges UI
   const userBadges = getLocalBadges();
   let badgesHtml = `<div class="card" style="margin-bottom:20px;">
-    <h3 style="margin-bottom:16px"><i data-lucide="award" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;color:#f59e0b"></i> Lencana Pencapaian</h3>
+    <h3 style="margin-bottom:16px"><i data-lucide="award" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;color:#f59e0b"></i> Lencana Pencapaian <span style="font-size:0.8rem;font-weight:400;color:var(--text-tertiary)">${userBadges.length}/${badgesData.length}</span></h3>
     <div class="badges-grid">
   `;
   badgesData.forEach(b => {
@@ -2282,7 +2561,7 @@ function renderRekodSection() {
   });
   listHtml += `</div></div>`;
 
-  container.innerHTML = badgesHtml + chartHtml + listHtml;
+  container.innerHTML = streakHtml + penilaianHtml + badgesHtml + chartHtml + listHtml;
   if (window.lucide) lucide.createIcons();
 }
 
@@ -2308,7 +2587,7 @@ function showRekodDetails(index) {
 }
 
 // ──────────────────────────────────────────────
-// 20. LOCKSCREEN
+// 22. LOCKSCREEN
 // ──────────────────────────────────────────────
 function setupLockscreen() {
   const container = document.getElementById('lockscreen-container');
@@ -2317,12 +2596,13 @@ function setupLockscreen() {
   const pwdInput = document.getElementById('lockscreen-pwd');
   const errorMsg = document.getElementById('lockscreen-error');
 
-  // The base64 encoded password for 'Xy7$P@ssw0rd!99'
-  const validHash = 'WHk3JFBAc3N3MHJkITk5';
+  // Password yang kelihatan seperti hash rawak (memenuhi kriteria 'macam hashing' dan tiada perkataan)
+  const validPassword = 'e9a3b6f0c4d2';
 
   function checkPassword() {
-    const input = pwdInput.value;
-    if (btoa(input) === validHash) {
+    const input = pwdInput.value.trim();
+
+    if (input === validPassword) {
       container.classList.add('unlocked');
       setTimeout(() => {
         container.style.display = 'none';
@@ -2348,7 +2628,7 @@ function setupLockscreen() {
 }
 
 // ──────────────────────────────────────────────
-// 21. INIT ON LOAD
+// 23. INIT ON LOAD
 // ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   setupLockscreen();
@@ -2364,4 +2644,3 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Lucide icons
   if (window.lucide) lucide.createIcons();
 });
-
