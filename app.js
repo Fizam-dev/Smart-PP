@@ -559,46 +559,47 @@ const quizData = [
 // ──────────────────────────────────────────────
 const examData = [
   // BAB 1
-  { bab: "1", soalan: "Nyatakan 5 faktor pengeluaran.", jawapan: ["Bahan mentah", "Modal", "Modal insan", "Teknologi", "Keusahawanan"], section: "1.1.2" },
-  { bab: "1", soalan: "Nyatakan 5 langkah dalam proses perniagaan.", jawapan: ["Input", "Proses tambah nilai", "Output", "Pemasaran", "Untung atau rugi"], section: "1.1.3" },
-  { bab: "1", soalan: "Nyatakan 5 aktiviti perniagaan berasaskan pengeluaran.", jawapan: ["Ekstraktif", "Barangan pengguna", "Barangan industri", "Pembuatan", "Pemasangan"], section: "1.2a" },
-  { bab: "1", soalan: "Nyatakan 7 aktiviti perniagaan berasaskan perkhidmatan.", jawapan: ["Peruncitan", "Pemborongan", "Kewangan", "Profesional", "Perhotelan", "Pendidikan", "Gig"], section: "1.2b" },
-  { bab: "1", soalan: "Nyatakan 8 klasifikasi perniagaan.", jawapan: ["Primer", "Sekunder", "Tertiar", "Huluan", "Aliran Pertengahan", "Hiliran", "Domestik", "Antarabangsa"], section: "1.2d" },
-  { bab: "1", soalan: "Nyatakan 4 kepentingan perniagaan antarabangsa.", jawapan: ["Tukaran asing", "Pasaran luas", "Pemindahan teknologi", "Pemindahan kepakaran"], section: "1.2e" },
-  { bab: "1", soalan: "Nyatakan 7 faktor persekitaran umum.", jawapan: ["Ekonomi", "Persaingan dan jaringan", "Sosiobudaya", "Politik dan perundangan", "Teknologi", "Prasarana", "Antarabangsa"], section: "1.3.1" },
-  { bab: "1", soalan: "Nyatakan 8 faktor persekitaran tugas.", jawapan: ["Pelanggan", "Pembekal", "Pembiaya", "Pemodal/pelabur", "Pesaing", "Kerajaan", "Pekerja", "Masyarakat"], section: "1.3.2" },
-  { bab: "1", soalan: "Nyatakan 4 ciri entiti perniagaan.", jawapan: ["Milikan tunggal", "Perkongsian", "Syarikat", "Koperasi"], section: "1.4" },
-
-  // BAB 2 — Peranan Pengurus (Fakta Khusus dari PDF)
-  { bab: "2", soalan: "Nyatakan 3 peranan pengurus mengikut Henry Mintzberg.", jawapan: ["Antara perorangan/interpersonal", "Peranan bermaklumat (informational)", "Pembuatan keputusan"], section: "2.1.3" },
-  { bab: "2", soalan: "Nyatakan 5 peranan pengurus mengikut Peter Drucker.", jawapan: ["Menetapkan objektif", "Mengorganisasi", "Memotivasi dan berkomunikasi", "Mengukur prestasi", "Membangun sumber manusia"], section: "2.1.3" },
+  { bab: "1", soalan: "Nyatakan 5 Faktor Pengeluaran.", jawapan: ["Bahan mentah", "Modal", "Modal insan", "Teknologi", "Keusahawanan"], section: "1.1.2" },
+  { bab: "1", soalan: "Nyatakan 5 Proses Perniagaan.", jawapan: ["Input", "Proses tambah nilai", "Output", "Pemasaran", "Untung atau rugi"], section: "1.1.3" },
+  { bab: "1", soalan: "Nyatakan 5 Aktiviti Berasaskan Pengeluaran.", jawapan: ["Ekstraktif", "Barangan pengguna", "Barangan industri", "Pembuatan", "Pemasangan"], section: "1.2a" },
+  { bab: "1", soalan: "Nyatakan 7 Aktiviti Berasaskan Perkhidmatan.", jawapan: ["Peruncitan", "Pemborongan", "Kewangan", "Profesional", "Perhotelan", "Pendidikan", "Gig"], section: "1.2b" },
+  { bab: "1", soalan: "Nyatakan 8 Klasifikasi Perniagaan.", jawapan: ["Primer", "Sekunder", "Tertiar", "Huluan", "Aliran Pertengahan", "Hiliran", "Domestik", "Antarabangsa"], section: "1.2d" },
+  { bab: "1", soalan: "Nyatakan 4 Kepentingan Perniagaan Antarabangsa.", jawapan: ["Tukaran asing", "Pasaran luas", "Pemindahan teknologi", "Pemindahan kepakaran"], section: "1.2e" },
+  { bab: "1", soalan: "Nyatakan 7 Faktor Persekitaran Umum.", jawapan: ["Ekonomi", "Persaingan dan jaringan", "Sosiobudaya", "Politik dan perundangan", "Teknologi", "Prasarana", "Antarabangsa"], section: "1.3.1" },
+  { bab: "1", soalan: "Nyatakan 8 Faktor Persekitaran Tugas.", jawapan: ["Pelanggan", "Pembekal", "Pembiaya", "Pemodal/pelabur", "Pesaing", "Kerajaan", "Pekerja", "Masyarakat"], section: "1.3.2" },
+  { bab: "1", soalan: "Nyatakan 4 Entiti Perniagaan.", jawapan: ["Milikan tunggal", "Perkongsian", "Syarikat", "Koperasi"], section: "1.4" },
 
   // BAB 2
-  { bab: "2", soalan: "Nyatakan 4 fungsi pengurusan.", jawapan: ["Perancangan", "Pengorganisasian", "Kepimpinan", "Pengawalan"], section: "2.1.1" },
-  { bab: "2", soalan: "Nyatakan 3 peringkat pengurusan.", jawapan: ["Peringkat bawahan", "Peringkat pertengahan", "Peringkat atasan"], section: "2.2.1" },
-  { bab: "2", soalan: "Nyatakan 5 jenis kemahiran pengurusan.", jawapan: ["Konseptual", "Antara perorangan atau kemanusiaan", "Teknikal", "Pengurusan masa", "Pembuatan keputusan"], section: "2.2.2" },
-  { bab: "2", soalan: "Nyatakan 5 langkah proses perancangan.", jawapan: ["Menentukan matlamat dan objektif", "Menganalisis persekitaran perniagaan", "Membentuk alternatif tindakan", "Menilai alternatif", "Memilih alternatif tindakan"], section: "2.3.1" },
-  { bab: "2", soalan: "Nyatakan 3 tahap perancangan strategik.", jawapan: ["Perancangan Strategi Korporat", "Strategi perniagaan", "Strategi Operasi (fungsian)"], section: "2.3.2" },
-  { bab: "2", soalan: "Nyatakan 7 unsur perancangan strategik.", jawapan: ["Visi", "Misi", "Objektif (VMO)", "Strategi dan taktik", "Dasar/polisi", "Prosedur", "Standard"], section: "2.3.2" },
-  { bab: "2", soalan: "Nyatakan 4 elemen dalam analisis SWOT.", jawapan: ["Kekuatan (Strengths)", "Kelemahan (Weaknesses)", "Peluang (Opportunities)", "Ancaman (Threats)"], section: "2.3.2" },
-  { bab: "2", soalan: "Nyatakan 6 elemen dalam analisis PESTEL.", jawapan: ["Politik", "Ekonomi", "Sosial", "Teknologi", "Persekitaran (Environment)", "Undang-undang (Legal)"], section: "2.3.2" },
-  { bab: "2", soalan: "Nyatakan 5 struktur organisasi.", jawapan: ["Struktur mengikut fungsi", "Struktur mengikut divisyen (produk, pasaran, geografi)", "Struktur mengikut matriks", "Struktur mengikut pasukan", "Struktur mengikut rangkaian maya (virtual network)"], section: "2.4.1" },
-  { bab: "2", soalan: "Nyatakan 5 langkah proses pengorganisasian.", jawapan: ["Penentuan objektif", "Pengenalpastian aktiviti", "Pengelasan aktiviti", "Pengelompokan aktiviti", "Pengagihan tugas, autoriti dan tanggungjawab"], section: "2.4.2" },
-  { bab: "2", soalan: "Nyatakan 5 jenis kuasa pemimpin.", jawapan: ["Kuasa sah", "Kuasa ganjaran", "Kuasa desakan", "Kuasa rujukan", "Kuasa kepakaran"], section: "2.5.1" },
-  { bab: "2", soalan: "Nyatakan 4 jenis kepimpinan.", jawapan: ["Transaksional", "Transformasi", "Karismatik", "Berwawasan"], section: "2.5.2" },
-  { bab: "2", soalan: "Nyatakan 5 gaya kepimpinan.", jawapan: ["Autokratik", "Demokratik", "Laissez-faire", "Kontingensi", "Kepimpinan khidmat (servant leadership)"], section: "2.5.3" },
-  { bab: "2", soalan: "Nyatakan 4 teori motivasi.", jawapan: ["Teori motivasi Maslow", "Teori motivasi Herzberg", "Teori motivasi McGregor", "Teori motivasi McClelland"], section: "2.5.6" },
-  { bab: "2", soalan: "Nyatakan 5 peringkat pembentukan pasukan.", jawapan: ["Pembentukan (forming)", "Peributan (storming)", "Penyesuaian (norming)", "Pelaksanaan (performing)", "Penangguhan (adjourning)"], section: "2.5.7" },
-  { bab: "2", soalan: "Nyatakan 4 langkah proses kawalan.", jawapan: ["Menetapkan standard", "Mengukur pencapaian", "Membandingkan pencapaian dengan standard", "Membuat langkah pembetulan"], section: "2.6.1" },
-  { bab: "2", soalan: "Nyatakan 3 kaedah kawalan.", jawapan: ["Kawalan awalan", "Kawalan semasa", "Kawalan selepas"], section: "2.6.2" },
-  { bab: "2", soalan: "Nyatakan 3 alat kawalan.", jawapan: ["Analisis Titik Pulangan Modal", "Bajet", "Carta Gantt"], section: "2.6.3" },
+  { bab: "2", soalan: "Nyatakan 4 Fungsi Pengurusan.", jawapan: ["Perancangan", "Pengorganisasian", "Kepimpinan", "Pengawalan"], section: "2.1.1" },
+  { bab: "2", soalan: "Nyatakan 3 Peranan Pengurus mengikut Henry Mintzberg.", jawapan: ["Antara perorangan/interpersonal", "Peranan bermaklumat (informational)", "Pembuatan keputusan"], section: "2.1.3" },
+  { bab: "2", soalan: "Nyatakan 5 Peranan Pengurus mengikut Peter Drucker.", jawapan: ["Menetapkan objektif", "Mengorganisasi", "Memotivasi dan berkomunikasi", "Mengukur prestasi", "Membangun sumber manusia"], section: "2.1.3" },
+  { bab: "2", soalan: "Nyatakan 3 Peringkat Pengurusan.", jawapan: ["Peringkat bawahan", "Peringkat pertengahan", "Peringkat atasan"], section: "2.2.1" },
+  { bab: "2", soalan: "Nyatakan 5 Kemahiran Pengurusan.", jawapan: ["Konseptual", "Antara perorangan atau kemanusiaan", "Teknikal", "Pengurusan masa", "Pembuatan keputusan"], section: "2.2.2" },
+  { bab: "2", soalan: "Nyatakan 5 Proses Perancangan.", jawapan: ["Menentukan matlamat dan objektif", "Menganalisis persekitaran perniagaan", "Membentuk alternatif tindakan", "Menilai alternatif", "Memilih alternatif tindakan"], section: "2.3.1" },
+  { bab: "2", soalan: "Nyatakan 3 Tahap Perancangan Strategik.", jawapan: ["Perancangan Strategi Korporat", "Strategi perniagaan", "Strategi Operasi (fungsian)"], section: "2.3.2" },
+  { bab: "2", soalan: "Nyatakan 7 Unsur Perancangan Strategik.", jawapan: ["Visi", "Misi", "Objektif (VMO)", "Strategi dan taktik", "Dasar/polisi", "Prosedur", "Standard"], section: "2.3.2" },
+  { bab: "2", soalan: "Nyatakan 4 elemen dalam Analisis SWOT.", jawapan: ["Kekuatan (Strengths)", "Kelemahan (Weaknesses)", "Peluang (Opportunities)", "Ancaman (Threats)"], section: "2.3.2" },
+  { bab: "2", soalan: "Nyatakan 4 elemen dalam Analisis TOWS.", jawapan: ["Ancaman", "Peluang", "Kelemahan", "Kekuatan"], section: "2.3.2" },
+  { bab: "2", soalan: "Nyatakan 6 elemen dalam Analisis PESTEL.", jawapan: ["Politik", "Ekonomi", "Sosial", "Teknologi", "Persekitaran (Environment)", "Undang-undang (Legal)"], section: "2.3.2" },
+  { bab: "2", soalan: "Nyatakan 2 Strategi Perancangan Strategik.", jawapan: ["Strategi Lautan Biru (Blue Ocean Strategy)", "Strategi Lautan Merah (Red Ocean Strategy)"], section: "2.3.2" },
+  { bab: "2", soalan: "Nyatakan 6 Terma Pengorganisasian.", jawapan: ["Autoriti, tanggungjawab dan akauntabiliti", "Pemusatan autoriti dan pemencaran autoriti", "Penugasan dan pemerkasaan (empowerment)", "Autoriti lini dan autoriti staf", "Jangkauan kawalan dan rantaian arahan", "Pengkhususan kerja"], section: "2.4b" },
+  { bab: "2", soalan: "Nyatakan 5 Struktur Organisasi.", jawapan: ["Struktur mengikut fungsi", "Struktur mengikut divisyen (produk, pasaran, geografi)", "Struktur mengikut matriks", "Struktur mengikut pasukan", "Struktur mengikut rangkaian maya (virtual network)"], section: "2.4.1" },
+  { bab: "2", soalan: "Nyatakan 5 Langkah dalam Proses Pengorganisasian.", jawapan: ["Penentuan objektif", "Pengenalpastian aktiviti", "Pengelasan aktiviti", "Pengelompokan aktiviti", "Pengagihan tugas, autoriti dan tanggungjawab"], section: "2.4.2" },
+  { bab: "2", soalan: "Nyatakan 5 Jenis Kuasa Pemimpin.", jawapan: ["Kuasa sah", "Kuasa ganjaran", "Kuasa desakan", "Kuasa rujukan", "Kuasa kepakaran"], section: "2.5.1" },
+  { bab: "2", soalan: "Nyatakan 4 Jenis Kepimpinan.", jawapan: ["Transaksional", "Transformasi", "Karismatik", "Berwawasan"], section: "2.5.2" },
+  { bab: "2", soalan: "Nyatakan 5 Gaya Kepimpinan.", jawapan: ["Autokratik", "Demokratik", "Laissez-faire", "Kontingensi", "Kepimpinan khidmat (servant leadership)"], section: "2.5.3" },
+  { bab: "2", soalan: "Nyatakan 4 Teori Motivasi.", jawapan: ["Teori motivasi Maslow", "Teori motivasi Herzberg", "Teori motivasi McGregor", "Teori motivasi McClelland"], section: "2.5.6" },
+  { bab: "2", soalan: "Nyatakan 5 Langkah dalam Proses Pembentukan Pasukan.", jawapan: ["Pembentukan (forming)", "Peributan (storming)", "Penyesuaian (norming)", "Pelaksanaan (performing)", "Penangguhan (adjourning)"], section: "2.5.7" },
+  { bab: "2", soalan: "Nyatakan 4 Langkah dalam Proses Kawalan.", jawapan: ["Menetapkan standard", "Mengukur pencapaian", "Membandingkan pencapaian dengan standard", "Membuat langkah pembetulan"], section: "2.6.1" },
+  { bab: "2", soalan: "Nyatakan 3 Kaedah Kawalan.", jawapan: ["Kawalan awalan", "Kawalan semasa", "Kawalan selepas"], section: "2.6.2" },
+  { bab: "2", soalan: "Nyatakan 3 Alat Kawalan.", jawapan: ["Analisis Titik Pulangan Modal", "Bajet", "Carta Gantt"], section: "2.6.3" },
 
   // BAB 3
-  { bab: "3", soalan: "Nyatakan 2 jenis keputusan.", jawapan: ["Keputusan rutin", "Keputusan tak rutin"], section: "3.1b" },
-  { bab: "3", soalan: "Nyatakan 4 faktor situasi dalam pembuatan keputusan.", jawapan: ["Kepastian", "Risiko", "Ketidakpastian", "Kesamaran"], section: "3.1c" },
-  { bab: "3", soalan: "Nyatakan 3 model pembuatan keputusan.", jawapan: ["Model klasik", "Model pentadbiran", "Model politik"], section: "3.2b" },
-  { bab: "3", soalan: "Nyatakan 6 langkah proses pembuatan keputusan rasional.", jawapan: ["Mengenal pasti masalah", "Mengutip data", "Menganalisis data", "Menjana alternatif", "Menilai alternatif", "Memilih alternatif"], section: "3.3" },
-  { bab: "3", soalan: "Nyatakan 4 gaya pembuatan keputusan.", jawapan: ["Direktif", "Analitik", "Konseptual", "Tingkah laku"], section: "3.4" },
+  { bab: "3", soalan: "Nyatakan 2 Jenis Keputusan.", jawapan: ["Keputusan rutin", "Keputusan tak rutin"], section: "3.1b" },
+  { bab: "3", soalan: "Nyatakan 4 Pengaruh Faktor Situasi terhadap Pembuatan Keputusan.", jawapan: ["Kepastian", "Risiko", "Ketidakpastian", "Kesamaran"], section: "3.1c" },
+  { bab: "3", soalan: "Nyatakan 3 Model Pembuatan Keputusan.", jawapan: ["Model klasik", "Model pentadbiran", "Model politik"], section: "3.2b" },
+  { bab: "3", soalan: "Nyatakan 6 Proses Pembuatan Keputusan.", jawapan: ["Mengenal pasti masalah", "Mengutip data", "Menganalisis data", "Menjana alternatif", "Menilai alternatif", "Memilih alternatif"], section: "3.3" },
+  { bab: "3", soalan: "Nyatakan 4 Gaya Pembuatan Keputusan.", jawapan: ["Direktif", "Analitik", "Konseptual", "Tingkah laku"], section: "3.4" },
 ];
 
 // ──────────────────────────────────────────────
@@ -1699,7 +1700,6 @@ function startHafalan() {
   localStorage.setItem('pp-username', userName);
 
   let questions = examData.filter(q => bab === 'all' || q.bab === bab);
-  questions = [...questions].sort(() => Math.random() - 0.5);
 
   hafalanState = {
     userName,
